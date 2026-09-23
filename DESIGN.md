@@ -58,18 +58,18 @@ v1에서 바뀐 이유는 [decisions/0001-adopt-existing-methods.md](decisions/0
 원칙과 관행 조항은 파일 앞부분에 상태를 적는다.
 
 ```yaml
-id: P-001
+id: R-001                  # 원칙은 P-, 관행은 R-
 layer: practice              # principle | practice
 status: proposed             # proposed | adopted | deprecated | superseded
 certainty: low               # high | moderate | low | very-low
-downgraded-for: [indirectness, imprecision]
+downgraded-for: [indirectness, imprecision]   # risk-of-bias | inconsistency | imprecision | indirectness | publication-bias
 falsified-if: "같은 조건의 재현 실험에서 효과가 관찰되지 않는다"
 review-by: 2027-03-24        # 관행만
 references: [1]
 superseded-by: null
 ```
 
-본문에는 조항, 이유, 반대 근거와 판단(반박형), 적용 방법을 차례로 적는다.
+본문에는 조항, 이유(원칙은 근거), 반대 근거와 판단(반박형), 적용 방법을 차례로 적는다. 조항은 에이전트가 `proposed`로 만들 수 있지만, `adopted`로 바꾸는 일은 사람이 결정 기록을 남겨서 한다.
 
 ## 7. 결정 기록 형식
 
@@ -95,29 +95,17 @@ Nygard 양식을 쓰고 "검토한 대안" 절 하나만 더한다 [17]. 간결�
 | 코드가 바뀌면 문서를 다시 보게 강제 | rust-analyzer의 해시 대조 방식 [21] | 대상 파일을 좁게 잡는다 |
 | 에이전트 지시 파일 표본 | Agent Context File Analysis 공개 데이터 [6] | 별 5개 이상, AIDev 기반 저장소로 한정된 모집단이다 |
 
-## 9. 지금까지 확인된 현상 (원칙 후보)
+## 9. 조항 목록
 
-| 현상 | 근거 | 등급 |
-|---|---|---|
-| 에이전트 지시 파일은 주로 추가로 커지고, 오래된 지시는 잘 지워지지 않는다 | [1] [6] [9] | 중간 |
-| 저장소 문서에는 낡은 코드 참조가 흔하다 | [2] [7] | 중간 (도구 오탐 때문에 부정확성으로 낮춤) |
-| 저장소 개요를 담은 에이전트 지시가 작업 성공률을 높인다는 근거는 없다 | [3] [5] | 낮음 (Python 한정, 소표본) |
-
-## 10. 처방 후보 (관행, 모두 `proposed`)
-
-| 처방 | 근거 | 등급 | 등급을 낮춘 이유 |
-|---|---|---|---|
-| 에이전트 지시마다 이유를 한 줄 붙인다 | [1] | 낮음 | 효과 수치가 합성 실험에서 나옴, 단독 저자, 동료 심사 전 |
-| 에이전트 지시에는 이 저장소만의 관례만 두고 개요는 뺀다 | [3] | 낮음 | Python 한정, 개발자 작성 파일은 효과 방향이 양수였음 |
-| 규칙은 에이전트가 실제로 틀렸을 때 고친다 | [9] | 매우 낮음 | 인과가 아닌 상관, LLM 채점, 소규모 웹 프로젝트 위주 |
+원칙은 [principles/](principles/), 관행은 [practices/](practices/)에 한 파일에 한 조항씩 있다. 이 문서에는 목록을 옮겨 적지 않는다. 같은 내용을 두 곳에 두면 한쪽이 낡기 때문이다.
 
 철회한 처방: "AGENTS.md는 효율을 위한 파일이다". 근거 [4]가 에이전트 하나만 다뤘고 정확성을 측정하지 않았으며, 다른 연구 [3]과 비교할 수 없는 조건이었다.
 
-## 11. 파일럿 스냅샷
+## 10. 파일럿 스냅샷
 
 `snapshots/2026-09-24-pilot/`은 v1에서 직접 정의한 지표로 측정한 기록이다. v2에서는 그 지표를 쓰지 않으므로 근거로 인용하지 않는다. 표본을 역할이나 성격으로 나누면 결론의 방향이 뒤집힌다는 사례로만 남긴다. 이 사례가 3절 불변식의 동기다.
 
-## 12. 미결정
+## 11. 미결정
 
 | 항목 | 추천 |
 |---|---|
