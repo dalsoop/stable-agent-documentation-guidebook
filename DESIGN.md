@@ -5,8 +5,8 @@ This document gives the design of the guidebook. The guidebook tells how to writ
 ## 1. Scope
 
 - **Documents:** README, ARCHITECTURE, context files and CONTRIBUTING.
-- **In scope:** growth by addition and outdated references in these documents, and the rules and checks that prevent them.
-- **Out of scope:** the effect of context files on the task success of agents. Studies do not agree [3] [4] [5]. This repository only cites them.
+- **In scope:** growth by addition and outdated references in these documents, the rules and checks that prevent them, and reader tests of single documents (R-004).
+- **Out of scope:** the general effect of context files on the task success of agents. Studies do not agree [3] [4] [5]. This repository only cites them.
 
 ## 2. Layers and records
 
@@ -27,6 +27,17 @@ Two records are not layers. You can only add to them. To change a record, write 
 |---|---|---|
 | Decision record | `decisions/` | The reason for a change to the structure or to the status of a clause |
 | Snapshot | `snapshots/` | Measurements |
+
+```mermaid
+flowchart TB
+  REF["References<br/>published research and tools"] --> P
+  INV["Sample integrity invariant"] --> P["Principles<br/>observed phenomena"]
+  P --> R["Practices<br/>prescriptions with a certainty"]
+  R --> G["Guides<br/>steps, templates, case studies"]
+  DEC[("Decision records")] -.->|set the status of| P
+  DEC -.->|set the status of| R
+  INV -.->|examines| SNAP[("Snapshots<br/>measurements")]
+```
 
 ## 3. Sample integrity invariant
 
@@ -74,6 +85,17 @@ superseded-by: null
 
 The body contains the clause, the reason (the evidence, for a principle) and the refutations. A practice also contains its application. An agent can make a clause with the status `proposed`. Only a person changes a status, and the person writes a decision record for it. To withdraw a clause, delete its file and write the reason in a decision record. Keep the file only if a different clause replaces it. Then set `status: superseded` and `superseded-by`.
 
+```mermaid
+flowchart LR
+  S["A new study"] --> C["An agent proposes a clause<br/>with a certainty and a falsification criterion"]
+  C --> H{"A person reviews it"}
+  H -->|accept| A["Decision record: adopted"]
+  H -->|reject| W["Decision record: withdrawn"]
+  A --> G["A guide cites the clause"]
+  G --> T["At each review cycle:<br/>grade again with new studies"]
+  T --> C
+```
+
 ## 7. Decision record format
 
 Use the format of Nygard, and add one section, Alternatives considered [17]. The short Nygard format had the best results for comprehension [18]. Real decision records omit alternatives more frequently than other sections [19].
@@ -89,7 +111,7 @@ Use the format of Nygard, and add one section, Alternatives considered [17]. The
 
 ## 8. Tools and data
 
-Use available tools for document checks. [guides/new-project.md](guides/new-project.md) §2 gives their order and their limits. For measurements of context files, use the Agent Context File Analysis dataset [6].
+Use available tools for document checks. [guides/new-project.md](guides/new-project.md) §3 gives their order and their limits. For measurements of context files, use the Agent Context File Analysis dataset [6].
 
 ## 9. Clauses
 

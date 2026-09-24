@@ -19,6 +19,9 @@ This file gives the terms of this repository. All documents use these terms and 
 | layer | One level of rules in this repository (DESIGN.md §2) | This repository |
 | guide | A procedure that applies clauses (DESIGN.md §2) | This repository |
 | case study | A record of one repository that followed a guide (DESIGN.md §2) | This repository |
+| reader | The group of people or agents that a document is for | [30] [31] |
+| reader task | What a reader must be able to do after reading a document | [31] |
+| reader test | A check that gives a new reader only one document and its reader task. The document passes if the reader does the task | R-004, [3] [5] |
 | decision record | The reason for a change to the structure or to the status of a clause (DESIGN.md §2) | [17] |
 | snapshot | A record of measurements (DESIGN.md §2) | This repository |
 | style guide | The set of rules for text in one language (DESIGN.md §11) | This repository |

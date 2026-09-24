@@ -32,7 +32,13 @@ flowchart TB
 
 ## Rules for change
 
-These rules are for agents and people who change this document or the README. Source: `guides/new-project.md` §2 and reference [22] in https://github.com/dalsoop/stable-agent-documentation-guidebook. Copy the rules again when the guidebook changes.
+These rules are for agents and people who change this document or the README. Source: `guides/new-project.md` §3 and reference [22] in https://github.com/dalsoop/stable-agent-documentation-guidebook. Copy the rules again when the guidebook changes.
+
+### Readers
+
+| Document | Reader | Reader task | Last reader test |
+|---|---|---|---|
+| <document> | <who reads it> | <what the reader can do after reading> | <date and result> |
 
 ### Rules
 

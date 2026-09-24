@@ -118,3 +118,13 @@ Each entry tells what this repository takes from the source. It also gives the l
 **[29]** Vale, a linter for prose. https://vale.sh/ · https://github.com/errata-ai/vale
 - Takes: sentence length checks for English files, with a configuration in `.vale.ini` and rules in `.github/styles/`.
 - Limits: it does not check sentences in table cells.
+
+## Readers of documents
+
+**[30]** AGENTS.md, "A simple, open format for guiding coding agents." Agentic AI Foundation, Linux Foundation. https://agents.md/
+- Takes: README files are for humans, and AGENTS.md is a README for agents. Each file has its own reader.
+- Limits: a format specification from practitioners, with no empirical evaluation.
+
+**[31]** D. Procida, "Diátaxis." https://diataxis.fr/
+- Takes: the type of a document follows from what its reader tries to do: learn, do a task, look up a fact or understand.
+- Limits: a framework from a practitioner, with no empirical evaluation. It was written for product documentation, not for context files.
