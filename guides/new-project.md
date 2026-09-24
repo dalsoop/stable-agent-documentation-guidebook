@@ -11,7 +11,7 @@
 | 에이전트 지시 파일 (AGENTS.md, CLAUDE.md 등) | 이 저장소만의 관례와 그 이유 | 저장소 개요, 언어나 도구의 일반 관례 | [templates/AGENTS.md](templates/AGENTS.md) |
 | CONTRIBUTING | 사람 기여자가 따를 절차 | 에이전트 지시 | 사람 기여자가 생길 때 만든다 |
 
-ARCHITECTURE의 구성은 [22]에서 가져왔다. 에이전트 지시 파일에 저장소 개요를 넣지 않는 것은 R-002와 P-003에 기댄다.
+ARCHITECTURE의 구성은 [22]에서 가져왔다. 에이전트 지시 파일에 저장소 개요를 넣지 않는 것은 R-002에 기댄다.
 
 ## 2. 순서
 
