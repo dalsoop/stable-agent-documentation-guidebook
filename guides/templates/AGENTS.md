@@ -1,14 +1,14 @@
-<!-- 뼈대: 꺾쇠 괄호를 채우고 이 주석을 지운다. 규칙은 긍정형으로 쓴다. 저장소 개요와 일반 관례는 넣지 않는다. -->
-# <저장소 이름> 작업 규칙
+<!-- Skeleton: fill in the angle brackets, then delete this comment. State rules positively. Leave out overviews and general conventions. -->
+# <repository> working rules
 
-에이전트가 이 저장소에서 지킬 규칙이다. 구조와 책임 경계는 [ARCHITECTURE.md](ARCHITECTURE.md)를 먼저 읽는다.
+Rules for agents working in this repository. Read [ARCHITECTURE.md](ARCHITECTURE.md) first for structure and boundaries.
 
-## 규칙
+## Rules
 
-1. **<규칙 이름>:** <지시 한 문장>. (이유: <이 규칙이 필요한 이유 한 줄>)
-2. **검증:** 모든 수정 후 `<검사 명령>`을 실행해 통과시킨다. (이유: <검사가 막는 규칙은 이 파일에 다시 적지 않기 때문이다>)
+1. **<rule name>:** <one-sentence instruction>. (Reason: <why this rule is needed>)
+2. **Verify:** run `<check command>` after every change and make it pass. (Reason: <rules the check enforces are not restated here>)
 
-## 참고
+## See also
 
-- 명령과 옵션: `<도구> help`
-- 이 파일의 작성 방식: 규칙마다 이유를 한 줄 붙이고, 이 저장소만의 관례만 둔다. 근거는 https://github.com/dalsoop/stable-agent-documentation-guidebook 의 R-001, R-002
+- Commands and options: `<tool> help`
+- How this file is written: one reason per rule, and only this repository's conventions. Source: R-001 and R-002 in https://github.com/dalsoop/stable-agent-documentation-guidebook

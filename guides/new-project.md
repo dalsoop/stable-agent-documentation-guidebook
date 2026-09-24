@@ -1,37 +1,39 @@
-# 새 프로젝트를 시작할 때
+# Starting a project
 
-새 저장소에 에이전트가 읽는 문서를 처음 만드는 순서다. 안내 층의 규칙([DESIGN.md](../DESIGN.md) 2절)을 따르므로, 단계마다 기대는 조항 id와 참고 문헌 번호만 적는다. 근거, 등급, 한계는 그 조항과 [REFERENCES.md](../REFERENCES.md)에서 읽는다. 상태가 `proposed`인 조항은 아직 채택되지 않은 처방이다.
+The order for creating the repository documents of a new repository. It follows the guide layer rules in [DESIGN.md](../DESIGN.md) §2: each step cites the clauses and references it rests on, or says that it rests on none. Certainty and limits are in each clause and in [REFERENCES.md](../REFERENCES.md). A `proposed` clause is not yet adopted.
 
-## 1. 만들 문서
+## 1. Documents
 
-| 문서 | 담는 것 | 담지 않는 것 | 뼈대 |
+| Document | Holds | Leaves out | Skeleton |
 |---|---|---|---|
-| README | 무엇인지 한 문단, 처음 실행할 명령, 다른 문서로 가는 링크 | 구조 설명, 작업 규칙 | [templates/README.md](templates/README.md) |
-| ARCHITECTURE | 목적, 폴더 구조, 의존 방향, 주요 흐름, 경계, 변경할 때 | 모듈 내부 동작, 옵션, 수치, 코드에서 나오는 목록 | [templates/ARCHITECTURE.md](templates/ARCHITECTURE.md) |
-| 에이전트 지시 파일 (AGENTS.md, CLAUDE.md 등) | 이 저장소만의 관례와 그 이유 | 저장소 개요, 언어나 도구의 일반 관례 | [templates/AGENTS.md](templates/AGENTS.md) |
-| CONTRIBUTING | 사람 기여자가 따를 절차 | 에이전트 지시 | 사람 기여자가 생길 때 만든다 |
+| README | What it is in one paragraph, the first commands to run, links to the other documents | Structure, working rules | [templates/README.md](templates/README.md) |
+| ARCHITECTURE | Purpose, folder layout, dependency direction, main flows, boundaries, when changing | Module internals, options, numbers, lists derived from code | [templates/ARCHITECTURE.md](templates/ARCHITECTURE.md) |
+| Instruction file (AGENTS.md, CLAUDE.md, ...) | The repository's own conventions, each with a reason | Overviews, general language and tool conventions | [templates/AGENTS.md](templates/AGENTS.md) |
+| CONTRIBUTING | Procedures for human contributors | Agent instructions | Create it when human contributors appear |
 
-ARCHITECTURE 행은 [22], 에이전트 지시 파일 행은 R-002에 기댄다. README 행과 CONTRIBUTING 행은 조항이나 참고 문헌에 기대지 않는 흔한 관례다.
+The ARCHITECTURE row rests on [22] and the instruction file row on R-002. The README and CONTRIBUTING rows are common convention and rest on no clause or reference.
 
-## 2. 순서
+## 2. Steps
 
-1. **README를 짧게 쓴다.** 무엇인지, 어떻게 처음 실행하는지, 나머지는 어느 문서에 있는지만 적는다. (조항이나 참고 문헌에 기대지 않는다)
-2. **ARCHITECTURE에는 잘 바뀌지 않는 것만 쓴다.** 목록, 버전, 옵션처럼 자주 바뀌는 것은 적지 않고, 그것을 조회하는 명령을 적는다. [22]
-3. **에이전트 지시 파일에는 이 저장소만의 관례를 긍정형으로 쓰고, 규칙마다 이유를 한 줄 붙인다.** R-001, R-002. 긍정형으로 쓰는 이유는 [DESIGN.md](../DESIGN.md) 5절 4항에 있다.
-4. **README처럼 목록이 필요한 문서에서는 목록을 코드에서 생성한다.** 생성 결과와 문서가 다르면 검사가 실패하게 한다(cog의 `--check` 방식). 코드에서 나오는 목록에만 쓴다. [20]
-5. **문서가 기대는 코드가 바뀌면 문서를 다시 보게 한다.** 대상 파일을 좁게 잡고, 코드의 해시와 문서에 적어 둔 해시가 다르면 검사가 실패하게 한다(rust-analyzer 방식). [21]
-6. **낡은 코드 참조 검사는 경고로 두고 사람이 확인한다.** 문서에는 낡은 참조가 흔하지만, 자동 검사(DOCER)는 오탐이 많아 실패 조건으로 쓰기 어렵다. P-002, [8], [2]
-7. **검사되지 않는 규칙은 문서에 따로 적는다.** 검사로 옮기지 못한 규칙을 ARCHITECTURE의 "변경할 때" 절에 모아 두면, 사람이 확인할 목록이 분명해진다. (조항이나 참고 문헌에 기대지 않는다. 적용 사례에서 가져온 방식이다)
-8. **기능을 고칠 때 그 설명을 지시 파일에 덧붙이지 않는다.** 동작 설명은 도구의 도움말로, 결정의 이유는 결정 기록으로 보낸다. 기능 설명은 이 저장소만의 관례가 아니다. R-002, P-001
-9. **정해진 주기로 처음부터 다시 읽는다.** 지시 파일은 주로 추가로 커진다(P-001). 이유가 사라진 규칙과 낡은 문장을 지운다. [22]
+1. **Keep the README short:** what it is, how to run it first, where everything else lives. Rests on no clause or reference.
+   Done when the README holds no structure description and no working rule.
+2. **Write only what rarely changes in ARCHITECTURE.** Leave out lists, versions and options, and name the command that queries them. [22]
+   Done when ARCHITECTURE holds no list derived from code.
+3. **Write the instruction file as the repository's own conventions, stated positively, each with a one-line reason.** R-001, R-002. Positive wording: DESIGN.md §5.
+   Done when every rule has a reason and no rule restates the README or ARCHITECTURE.
+4. **Generate any list a document needs, such as a version list in the README, and fail the check when the document and the generated output differ** (Cog's `--check`). Use it only for lists derived from code. [20]
+   Done when a hand edit of the generated list fails the check.
+5. **Force a re-read when code a document relies on changes.** Keep the target files few, and fail the check when their hash differs from the hash recorded in the document (the rust-analyzer approach). [21]
+   Done when changing a target file fails the check until the recorded hash is updated.
+6. **Report stale references as warnings for a person to review.** Stale references are common, but automatic detection (DOCER) has many false positives, so it does not fail the build. P-002, [8], [2]
+   Done when the check runs on every pull request and never blocks it.
+7. **List the rules no check enforces** in the "When changing" section of ARCHITECTURE, so a person knows what to verify by hand. Rests on no clause or reference; taken from the case.
+   Done when every boundary rule is either enforced by a check or listed.
+8. **Leave feature descriptions out of the instruction file.** Behaviour goes to the tool's help and reasons to a decision record; a feature description is not a repository convention. R-002, P-001
+   Done when a feature change leaves the instruction file untouched unless a convention changed.
+9. **Re-read every document on a fixed cycle,** deleting rules whose reason is gone and sentences that went stale. Instruction files accumulate sediment (P-001). [22]
+   Done when the cycle and the date of the last re-read are written in ARCHITECTURE.
 
-## 3. 첫 커밋 전에 확인할 것
+## Case
 
-- [ ] 문서마다 1절 표의 "담지 않는 것"이 들어가 있지 않다.
-- [ ] 에이전트 지시 파일의 모든 규칙에 이유가 있다.
-- [ ] 손으로 옮겨 적은 목록이 없다. 있으면 생성하고 검사한다.
-- [ ] 검사가 커밋 훅이나 CI에서 돈다.
-
-## 적용 사례
-
-[case-swift-monorepo.md](case-swift-monorepo.md): 이 순서를 한 모노레포에 적용한 기록이다.
+[case-swift-monorepo.md](case-swift-monorepo.md) applies this order to one monorepo.

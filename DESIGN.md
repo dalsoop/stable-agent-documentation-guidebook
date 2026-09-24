@@ -1,121 +1,112 @@
-# 설계 v2
+# Design
 
-이 저장소는 에이전트가 읽는 저장소 문서를 시간이 지나도 흔들리지 않게 쓰는 방법을 정리한다. 새 지표나 새 도구를 만들지 않는다. 이미 발표된 연구, 공개 데이터, 운영 중인 도구를 어떤 순서로 적용하는지 안내하는 것이 이 저장소의 일이다. 대괄호 번호는 [REFERENCES.md](REFERENCES.md)의 항목이다.
+How to write repository documents that stay correct as the code changes, using published research and existing tools. This repository builds no new metric and no new tool ([decision 0001](decisions/0001-adopt-existing-methods.md)). Bracketed numbers point to [REFERENCES.md](REFERENCES.md); terms are defined in [CONTEXT.md](CONTEXT.md).
 
-v1에서 바뀐 이유는 [decisions/0001-adopt-existing-methods.md](decisions/0001-adopt-existing-methods.md)에 있다.
+## 1. Scope
 
-## 1. 범위
+- **Documents:** README, ARCHITECTURE, instruction files, CONTRIBUTING.
+- **In scope:** sediment and stale references in these documents, and the writing rules and checks that prevent them.
+- **Out of scope:** whether instruction files raise agent task success. Studies disagree [3] [4] [5]; this repository only cites them.
 
-- **대상 문서**: 소개(README), 구조 설명(ARCHITECTURE), 에이전트 지시(AGENTS.md, CLAUDE.md 등), 기여 안내(CONTRIBUTING)
-- **다루는 것**: 문서가 커지고 흔들리는 현상, 문서가 코드와 어긋나 낡는 현상, 이를 막는 작성 방식과 검사
-- **다루지 않는 것**: 에이전트 지시 파일이 작업 성공률을 높이는가. 이 질문은 연구 결과가 서로 엇갈리며 [3] [4] [5], 이 저장소는 그 결과를 인용만 한다.
+## 2. Layers and records
 
-## 2. 층 구조
+Higher layers change less often; lower layers follow higher ones.
 
-위 층일수록 드물게 바뀌고, 아래 층은 위 층의 규칙을 따른다.
-
-| 층 | 위치 | 들어오는 조건 |
+| Layer | Location | Entry condition |
 |---|---|---|
-| 표본 무결성 불변식 | 이 문서 3절 | 바꾸지 않는다 |
-| 원칙 | `principles/` | 근거 등급이 "중간" 이상이고, 서로 다른 연구 둘 이상에서 같은 방향으로 관찰된 현상 |
-| 관행 | `practices/` | 근거 등급과 반증 조건을 붙인 처방. 재검증 기한이 있다 |
-| 안내 | `guides/` | 조항과 참고 문헌을 적용하는 순서, 뼈대 파일, 적용 사례. 새 주장을 하지 않고 조항 id와 참고 문헌 번호만 인용한다. 어디에도 기대지 않는 단계는 그렇다고 적는다. 적용 사례는 근거로 쓰지 않는다 |
+| Sample integrity invariant | §3 | Never changes |
+| Principle | `principles/` | Certainty moderate or higher, observed in the same direction by at least two studies whose samples do not overlap |
+| Practice | `practices/` | A certainty, a falsifier and a review date |
+| Guide | `guides/` | Cites clause ids and reference numbers only, and marks any step that rests on neither. A case is never evidence |
 
-"서로 다른 연구"는 표본이 겹치지 않는 연구다. 저자나 방법이 겹치면 두 연구의 오류도 겹칠 수 있으므로, 조항의 반대 근거에 적고 등급을 판단할 때 반영한다.
+When two studies share authors or methods, their errors may overlap: say so in a rebuttal and weigh it in the certainty.
 
-층과 별도로 두 가지 기록이 있다. 둘 다 추가만 하고, 한 번 쓴 기록은 고치지 않는다.
+Two records sit outside the layers. Both are append-only; a record that must change is superseded by a new one.
 
-| 기록 | 위치 | 쓰임 |
+| Record | Location | Holds |
 |---|---|---|
-| 결정 기록 | `decisions/` | 층의 구조와 조항의 상태를 바꾼 이유. 결정이 바뀌면 새 기록으로 대체한다 |
-| 스냅샷 | `snapshots/` | 측정 기록 |
+| Decision record | `decisions/` | Why the structure or a clause status changed |
+| Snapshot | `snapshots/` | Measurements |
 
-## 3. 표본 무결성 불변식
+## 3. Sample integrity invariant
 
-> 표본의 품질과 방향성 응집도가 기준에 미달하면, 그 표본에서 나온 결론은 채택하지 않는다.
+> If a sample falls short on quality or directional coherence, conclusions drawn from it are not adopted.
 
-이 불변식은 우리가 직접 측정한 데이터와 인용하는 연구에 똑같이 적용한다. 판정 방법은 새로 만들지 않고 다음을 쓴다.
+The invariant applies equally to our own measurements and to cited studies, and is judged with existing methods:
 
-- **표본 품질**: GitHub 데이터의 알려진 함정 [10]과 소프트웨어 공학 표집 지침 [11]으로 점검한다.
-- **방향성 응집도와 근거의 약점**: GRADE의 다섯 영역으로 평가한다 [12]. 연구 설계의 한계, 비일관성, 부정확성, 비직접성, 출판 편향이다. 예를 들어 합성 실험만 있으면 설계 한계, 결과끼리 엇갈리면 비일관성, 표본이 작으면 부정확성, 다른 언어나 다른 에이전트만 다뤘으면 비직접성으로 등급을 낮춘다.
+- **Sample quality:** the known pitfalls of GitHub data [10] and sampling guidelines for software engineering research [11].
+- **Directional coherence and weakness:** the five GRADE domains [12], namely risk of bias, inconsistency, imprecision, indirectness and publication bias. Synthetic experiments only lower a certainty for risk of bias, conflicting results for inconsistency, small samples for imprecision, and other languages or agents for indirectness.
 
-## 4. 근거 등급
+## 4. Certainty
 
-모든 원칙과 관행 조항에 GRADE 방식의 등급을 붙인다 [12].
+Every clause carries a GRADE certainty [12] and lists the domains it was downgraded for.
 
-| 등급 | 뜻 |
+| Certainty | Meaning |
 |---|---|
-| 높음 | 후속 연구가 나와도 결론이 바뀔 가능성이 낮다 |
-| 중간 | 결론이 바뀔 수 있다 |
-| 낮음 | 결론이 바뀔 가능성이 높다 |
-| 매우 낮음 | 결론을 거의 확신할 수 없다 |
+| high | Further research is unlikely to change the conclusion |
+| moderate | Further research may change the conclusion |
+| low | Further research is likely to change the conclusion |
+| very low | The conclusion is very uncertain |
 
-등급을 낮춘 영역은 조항에 함께 적는다.
+## 5. Counter-evidence
 
-## 5. 반대 근거를 다루는 방식
+Counter-evidence goes in as rebuttals, not as a list. Two-sided messages without refutation persuade less than one-sided ones, while refutational messages persuade more [14]; texts that state a misconception and refute it improve learning [13].
 
-반대 근거는 넣되, 나열하지 않고 반박형으로 넣는다. 반박 없이 반대 의견만 적은 글은 설득력이 오히려 떨어지고 [14], 오해를 먼저 제시하고 반박하는 글은 학습 효과가 있다 [13].
+1. Pair each piece of counter-evidence with this repository's judgement: what was taken in and what limit remains.
+2. Give every clause a falsifier, following the adversarial collaboration procedure [15].
+3. Before proposing a clause, read the limitations of each cited study and look for studies that contradict it.
+4. Keep counter-evidence out of instruction files. Models often miss negation [16], so instruction files hold positive instructions with a one-line reason; rebuttals live in clauses and decision records. This carries reader studies [13] [14] over to agents, so it is indirect.
 
-1. **반박형으로 쓴다.** 반대 근거마다 "반대 근거 → 이 저장소의 판단(반영한 점, 남는 한계)"을 한 쌍으로 적는다.
-2. **반증 조건을 적는다.** 조항마다 "이 조항이 틀렸다고 판단할 조건"을 한 줄 적는다. 적대적 협업의 절차에서 가져온 방식이다 [15].
-3. **조항을 채택하기 전에 반대 근거를 찾는다.** 인용하려는 연구의 한계 절과, 그 결과를 반박하는 연구를 먼저 확인한다.
-4. **에이전트 지시 파일에는 반대 근거를 넣지 않는다.** LLM은 부정문을 자주 놓친다 [16]. 에이전트 지시 파일에는 긍정형 지시와 이유 한 줄만 두고, 반대 근거는 이 저장소의 설명 층과 결정 기록에 둔다. 이 판단은 사람 독자 연구 [13] [14]를 에이전트 문서에 옮겨 적용한 것이므로 비직접성을 안고 있다.
-
-## 6. 조항 형식
-
-원칙과 관행 조항은 파일 앞부분에 상태를 적는다.
+## 6. Clause format
 
 ```yaml
-id: R-001                  # 원칙은 P-, 관행은 R-
-layer: practice              # principle | practice
-status: proposed             # proposed | adopted | superseded
-certainty: low               # high | moderate | low | very-low
+id: R-001                  # P- for principles, R- for practices
+layer: practice            # principle | practice
+status: proposed           # proposed | adopted | superseded
+certainty: low             # high | moderate | low | very-low
 downgraded-for: [indirectness, imprecision]   # risk-of-bias | inconsistency | imprecision | indirectness | publication-bias
-falsified-if: "같은 조건의 재현 실험에서 효과가 관찰되지 않는다"
-review-by: 2027-03-24        # 관행만
+falsified-if: "The same effect is not observed in a replication under the same conditions"
+review-by: 2027-03-24      # practices only
 references: [1]
 superseded-by: null
 ```
 
-본문에는 조항, 이유(원칙은 근거), 반대 근거와 판단(반박형)을 차례로 적고, 관행은 적용 방법을 덧붙인다. 원칙은 현상을 말하므로 적용 방법이 없다. 조항은 에이전트가 `proposed`로 만들 수 있지만, `adopted`로 바꾸는 일은 사람이 결정 기록을 남겨서 한다.
+The body holds the clause, its reason (evidence, for a principle) and its rebuttals; a practice adds its application. Agents may create `proposed` clauses. Only a person changes a status, through a decision record. To withdraw a clause, delete its file and record why in a decision record. Keep the file only when another clause replaces it: set `status: superseded` and `superseded-by`.
 
-조항을 철회할 때는 파일을 지우고, 이유는 결정 기록에 남긴다. 다른 조항으로 바꿀 때만 파일을 남기고 `status: superseded`와 `superseded-by`를 적는다.
+## 7. Decision record format
 
-## 7. 결정 기록 형식
-
-Nygard 양식을 쓰고 "검토한 대안" 절 하나만 더한다 [17]. 간결한 Nygard 양식이 이해도에서 더 좋은 평가를 받았고 [18], 실제 결정 기록에서는 대안이 가장 자주 빠진다 [19].
+Nygard's format with one added section, Alternatives considered [17]. Nygard's short format scored best on comprehension [18], and alternatives are the section real records omit most often [19].
 
 ```
-# 번호. 제목
-## 상태
-## 맥락
-## 결정
-## 검토한 대안
-## 결과
+# N. Title
+## Status
+## Context
+## Decision
+## Alternatives considered
+## Consequences
 ```
 
-## 8. 도구와 데이터
+## 8. Tools and data
 
-새 도구를 만들지 않는다. 문서 검사에 쓰는 기존 도구와 주의점은 적용 순서와 함께 [guides/new-project.md](guides/new-project.md) 2절에 있다. 측정에 쓰는 에이전트 지시 파일 표본은 Agent Context File Analysis 공개 데이터 [6]이며, 그 모집단의 한계는 [REFERENCES.md](REFERENCES.md)에 있다.
+Document checks use existing tools; their order and caveats are in [guides/new-project.md](guides/new-project.md) §2. The instruction-file sample for measurement is the Agent Context File Analysis dataset [6].
 
-## 9. 조항 목록
+## 9. Clauses
 
-원칙은 [principles/](principles/), 관행은 [practices/](practices/)에 한 파일에 한 조항씩 있다. 이 문서에는 목록을 옮겨 적지 않는다. 같은 내용을 두 곳에 두면 한쪽이 낡기 때문이다. 조항을 새 저장소에 적용하는 순서는 [guides/new-project.md](guides/new-project.md)에 있다.
+Principles live in [principles/](principles/) and practices in [practices/](practices/), one file per clause. This document does not list them.
 
-철회한 조항:
+Withdrawn:
 
-- "AGENTS.md는 효율을 위한 파일이다" (설계 v1의 처방, 2026-09-24). 근거 [4]가 에이전트 하나만 다뤘고 정확성을 측정하지 않았으며, 다른 연구 [3]과 비교할 수 없는 조건이었다. v1의 처방이라 결정 기록이 없어 이유를 여기에 둔다.
-- R-003 "규칙은 에이전트가 실제로 틀렸을 때 고친다" (2026-09-25): [decisions/0003](decisions/0003-withdraw-r003-p003.md)
-- P-003 "저장소 개요가 에이전트의 작업 성공률을 높인다는 근거는 없다" (2026-09-25): [decisions/0003](decisions/0003-withdraw-r003-p003.md)
+- "AGENTS.md is a file for efficiency" (a design v1 prescription, 2026-09-24). Its source [4] covered one agent, did not measure correctness, and could not be compared with [3]. It predates decision records, so the reason stays here.
+- R-003 "Change rules when the agent actually errs" (2026-09-25): [decision 0003](decisions/0003-withdraw-r003-p003.md).
+- P-003 "There is no evidence that repository overviews raise agent task success" (2026-09-25): [decision 0003](decisions/0003-withdraw-r003-p003.md).
 
-## 10. 파일럿 스냅샷
+## 10. Pilot snapshot
 
-`snapshots/2026-09-24-pilot/`은 v1에서 직접 정의한 지표로 측정한 기록이다. v2에서는 그 지표를 쓰지 않으므로 근거로 인용하지 않는다. 표본을 역할이나 성격으로 나누면 결론의 방향이 뒤집힌다는 사례로만 남긴다. 이 사례가 3절 불변식의 동기다.
+`snapshots/2026-09-24-pilot/` measured metrics defined in design v1. This design does not use them, so the snapshot is never cited as evidence. It stays as the example of a split sample reversing a conclusion, which motivated §3.
 
-## 11. 미결정
+## 11. Open questions
 
-| 항목 | 추천 |
+| Question | Recommendation |
 |---|---|
-| 모집단 | 에이전트 지시 파일은 [6]의 모집단을 그대로 쓴다. 에이전트 제품 저장소는 별도 모집단으로 둔다 |
-| 측정 주기 | 반기. 새 논문과 공개 데이터가 나오면 등급을 다시 매긴다 |
-| 언어 | 지금은 모든 문서를 한국어로 쓴다. 영어 본문을 둘지는 정하지 않았다 |
+| Population | Use the population of [6] for instruction files; keep agent product repositories as a separate population |
+| Review cycle | Every six months; re-grade when new papers or datasets appear |

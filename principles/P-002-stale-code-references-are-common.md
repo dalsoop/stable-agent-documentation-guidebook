@@ -4,25 +4,25 @@ layer: principle
 status: proposed
 certainty: moderate
 downgraded-for: [imprecision]
-falsified-if: "오탐을 수작업으로 걸러낸 대규모 표본에서 낡은 코드 참조를 가진 저장소가 드물게 관찰된다"
+falsified-if: "A large sample with false positives removed by hand shows stale references in few repositories"
 references: [2, 7]
 superseded-by: null
 ---
 
-# 저장소 문서에는 낡은 코드 참조가 흔하다
+# Repository documents often hold stale references
 
-## 조항
+## Clause
 
-저장소 문서와 에이전트 지시 파일에는 코드에서 이미 사라진 요소를 가리키는 참조가 흔하게 남는다.
+Repository documents, instruction files included, often keep references to code elements that no longer exist.
 
-## 근거
+## Evidence
 
-- GitHub 프로젝트 3,000여 개 가운데 대부분이 이력 중 한 번은 낡은 코드 참조를 가졌다 [7].
-- 같은 계열의 검사를 에이전트 지시 파일에 적용한 결과, 상당수 저장소에서 낡은 참조가 발견되었다 [2].
+- Most of about 3,000 GitHub projects had a stale reference at some point in their history [7].
+- Applying the same family of checks to instruction files found stale references in many repositories [2].
 
-## 반대 근거와 판단
+## Rebuttals
 
-- **반대 근거**: [2]에서 수작업으로 확인한 표본 가운데 상당수가 오탐이거나 애매했다(수치는 [2]의 한계). 저자도 수치를 가능성 신호로만 규정했다.
-  **판단**: 오탐을 빼도 낡은 참조는 남는다. 따라서 현상 자체는 받아들이되, 빈도 수치는 인용하지 않고 부정확성으로 등급을 낮춘다.
-- **반대 근거**: 두 연구는 저자가 겹치고, [2]는 [7] 계열의 검사 방법을 다시 썼다. 독립된 두 관찰로 보기 어렵다.
-  **판단**: 표본은 겹치지 않는다([7]은 프로젝트 문서, [2]는 에이전트 지시 파일). 같은 방법이 공유할 수 있는 오류는 오탐이고, 위 항목에서 이미 부정확성으로 반영했다. 그래서 원칙 층의 "서로 다른 연구 둘"은 충족한 것으로 보고, 등급을 더 낮추지 않는다. 방법이 다른 독립 연구가 나오면 다시 평가한다.
+- **Counter-evidence:** many of the findings checked by hand in [2] were false positives or ambiguous (the figure is in the limits of [2]). The authors call their figures a possibility signal.
+  **Judgement:** stale references remain after the false positives are removed. The phenomenon is accepted, no frequency is cited, and the certainty is downgraded for imprecision.
+- **Counter-evidence:** the two studies share an author, and [2] reuses the family of checks from [7], so they are not independent observations.
+  **Judgement:** their samples do not overlap ([7] project documentation, [2] instruction files). The error a shared method can carry is false positives, already graded as imprecision above. The principle condition of two studies is met and there is no further downgrade. Re-grade when an independent study with a different method appears.

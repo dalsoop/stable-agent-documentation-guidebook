@@ -1,28 +1,28 @@
-# 4. 첫 조항 채택
+# 4. First adoption
 
-## 상태
+## Status
 
-제안 (2026-09-25). 사람이 이 기록을 "채택"으로 바꾸고 해당 조항의 `status`를 고칠 때 효력이 생긴다.
+Proposed (2026-09-25). Takes effect when a person changes this status to Accepted and sets the `status` of the four clauses to `adopted`.
 
-## 맥락
+## Context
 
-남은 조항 네 개가 모두 `proposed`여서 가이드북에 효력 있는 처방이 없다. [guides/new-project.md](../guides/new-project.md)는 이 조항들을 인용하지만, 인용한 조항이 모두 제안 상태이면 순서를 따를 이유가 약하다. R-002는 이 기록과 같은 변경에서 이유와 반증 조건을 이 저장소의 범위 안으로 옮겼다(작업 성공률 대신 중복과 낡음).
+The four remaining clauses are all `proposed`, so the guidebook has no prescription in force and [guides/new-project.md](../guides/new-project.md) cites only proposals. In the same change, the reason and falsifier of R-002 moved inside the scope: duplication and stale references instead of task success.
 
-## 결정
+## Decision
 
-| 조항 | 등급 | 층 조건 ([DESIGN.md](../DESIGN.md) 2절) | 제안 |
+| Clause | Certainty | Entry condition ([DESIGN.md](../DESIGN.md) §2) | Proposal |
 |---|---|---|---|
-| P-001 지시 파일은 추가로 커진다 | 중간 | 충족. 표본이 겹치지 않는 연구 3개 [1] [6] [9] | 채택 |
-| P-002 낡은 코드 참조가 흔하다 | 중간 | 충족. 표본이 겹치지 않는 연구 2개 [2] [7]. 저자와 방법이 겹치는 점은 조항에 적었다 | 채택 |
-| R-001 지시마다 이유를 붙인다 | 낮음 | 충족. 반증 조건과 재검증 기한이 있다 | 채택 |
-| R-002 저장소만의 관례만 둔다 | 낮음 | 충족 | 채택 |
+| P-001 Instruction files grow mainly by addition | moderate | Met: three studies with non-overlapping samples [1] [6] [9] | Adopt |
+| P-002 Repository documents often hold stale references | moderate | Met: two studies with non-overlapping samples [2] [7]; the shared author and method are stated in a rebuttal | Adopt |
+| R-001 State a reason for every instruction | low | Met: falsifier and review date | Adopt |
+| R-002 Keep only the repository's own conventions in instruction files | low | Met | Adopt |
 
-## 검토한 대안
+## Alternatives considered
 
-- **등급이 "중간" 이상인 조항만 채택한다.** 기각했다. 관행 층은 낮은 등급도 받는다. 낮음 등급 관행을 막으면 적용 순서의 핵심인 R-001과 R-002가 효력을 갖지 못한다. 등급은 조항에 적혀 있으므로 읽는 사람이 판단할 수 있다.
-- **P-002를 원칙에서 내린다.** 기각했다. 두 연구의 표본(프로젝트 문서 3,000여 개, 에이전트 지시 파일)이 겹치지 않는다. 겹치는 저자와 방법이 공유할 수 있는 오류는 오탐이며, 이미 부정확성으로 등급을 낮춰 반영했다.
+- **Adopt only clauses with certainty moderate or higher.** Rejected: the practice layer accepts low certainty. Excluding low leaves R-001 and R-002, the core of the guide, without force. Each clause states its certainty, so readers can weigh it.
+- **Move P-002 out of principles.** Rejected: the two samples (about 3,000 project documentation sets, and instruction files) do not overlap. The error a shared method can carry is false positives, already graded as imprecision.
 
-## 결과
+## Consequences
 
-- 채택하면 P-001, P-002, R-001, R-002의 `status`를 `adopted`로 바꾼다.
-- R-001, R-002의 재검증 기한(2027-03-24)은 그대로 둔다.
+- On acceptance, `status: adopted` is set in P-001, P-002, R-001 and R-002.
+- R-001 and R-002 keep their review date, 2027-03-24.

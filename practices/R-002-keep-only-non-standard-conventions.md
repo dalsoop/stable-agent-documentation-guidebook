@@ -4,37 +4,37 @@ layer: practice
 status: proposed
 certainty: low
 downgraded-for: [indirectness]
-falsified-if: "개요와 구조 설명을 에이전트 지시 파일에도 둔 저장소에서, 지시 파일의 낡은 코드 참조와 증가 속도가 그렇지 않은 저장소보다 크지 않다"
+falsified-if: "Repositories that also keep overviews and structure in the instruction file show no more stale references and no faster growth in it than repositories that do not"
 review-by: 2027-03-24
 references: [1, 2, 3, 7]
 superseded-by: null
 ---
 
-# 에이전트 지시에는 그 저장소만의 관례만 둔다
+# Keep only the repository's own conventions in instruction files
 
-## 조항
+## Clause
 
-에이전트 지시 파일에는 README나 코드에서 알 수 없는, 그 저장소만의 관례와 명령만 둔다. 저장소 개요와 구조 설명은 README와 ARCHITECTURE에 두고 경로만 가리킨다.
+An instruction file holds only the conventions and commands that the README and the code do not reveal. Overviews and structure live in README and ARCHITECTURE, and the instruction file points to them.
 
-## 이유
+## Reason
 
-개요와 구조 설명에는 파일, 모듈, 명령 같은 코드 요소가 많이 들어간다. 이것을 에이전트 지시 파일에도 두면 같은 내용이 두 곳에 생기고, 코드가 바뀔 때 한쪽만 고쳐져 낡은 참조가 남는다. 문서의 낡은 코드 참조는 흔하고(P-002), 지시 파일은 주로 추가로 커져 한번 들어간 내용이 잘 지워지지 않는다(P-001). 개요를 한 곳에만 두면 낡을 자리와 커질 자리가 함께 줄어든다.
+Overviews and structure name many code elements: files, modules, commands. Kept in the instruction file as well, they exist twice, and when the code changes only one copy gets fixed, leaving stale references. Stale references are common (P-002), and what enters an instruction file rarely leaves (P-001). Keeping one copy removes the second place to go stale and to grow.
 
-지시 파일에 개요를 넣어야 한다는 근거도 없다. 개요는 에이전트가 관련 파일을 찾는 속도를 바꾸지 못했다 [3]. 이 연구는 작업 성공률을 다루므로 이 저장소의 범위 밖이며([DESIGN.md](../DESIGN.md) 1절), 여기서는 넣을 이유가 보고되지 않았다는 사실만 인용한다.
+No study reports a reason to put overviews in instruction files: overviews did not change how fast agents found relevant files [3]. That study measures task success, which is out of scope (DESIGN.md §1), so only its null finding is cited here.
 
-## 반대 근거와 판단
+## Rebuttals
 
-- **반대 근거**: 이 처방은 원칙 두 개에서 추론한 것이다. 개요를 옮긴 저장소와 옮기지 않은 저장소를 비교한 연구는 없다.
-  **판단**: 비직접성으로 등급을 낮춰 낮음으로 둔다. 반증 조건을 그 비교로 적었다.
-- **반대 근거**: [3]에서 개발자가 직접 쓴 지시 파일은 효과의 방향이 양수였다. 개요가 도움이 될 수도 있다.
-  **판단**: 유의하지 않았다. 또 이 조항은 개요를 없애는 것이 아니라 위치를 옮기는 처방이다. 지시 파일은 개요가 있는 경로를 가리킨다.
-- **반대 근거**: 문서가 적은 저장소에서는 개요를 둘 곳이 지시 파일뿐일 수 있다.
-  **판단**: 개요를 README에 먼저 쓰고 지시 파일에서 가리킨다.
+- **Counter-evidence:** the practice is inferred from two principles; no study compares repositories that moved overviews out with repositories that did not.
+  **Judgement:** downgraded for indirectness to low. The falsifier states that comparison.
+- **Counter-evidence:** in [3], developer-written instruction files had a positive effect.
+  **Judgement:** it was not significant. The practice moves overviews rather than deleting them: the instruction file points to where they are.
+- **Counter-evidence:** a repository with few documents may have nowhere else to keep an overview.
+  **Judgement:** write the overview in the README first and point to it.
 
-## 적용
+## Application
 
 ```markdown
-구조와 경계는 ARCHITECTURE.md를 먼저 읽는다.
+Read ARCHITECTURE.md first for structure and boundaries.
 
-- 새 앱은 `./repo new <app>`으로만 만든다. (이유: 스캐폴더가 필수 파일을 함께 만든다)
+- Create apps only with `./repo new <app>`. (Reason: the scaffolder creates the required files.)
 ```

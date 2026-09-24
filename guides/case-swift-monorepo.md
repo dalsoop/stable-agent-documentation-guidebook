@@ -1,30 +1,30 @@
-# 적용 사례: Swift 모노레포 (2026-09)
+# Case: a Swift monorepo (2026-09)
 
-[new-project.md](new-project.md)의 순서를 기존 저장소 하나에 적용한 기록이다. 저장소가 비공개라서 이름과 내부 도구 이름은 일반 명칭으로 바꿨다. 적용 사례를 어떻게 쓰는지는 [DESIGN.md](../DESIGN.md) 2절의 안내 층 규칙을 따른다.
+A record of applying [new-project.md](new-project.md) to one existing repository. The repository is private, so its name and the names of its internal tools are replaced with generic ones. How a case may be used is set by the guide layer rules in [DESIGN.md](../DESIGN.md) §2.
 
-## 저장소
+## Repository
 
-앱 여러 개와 공유 패키지를 한 저장소에 둔 Swift 모노레포다. 여러 AI 에이전트가 동시에 작업한다. 저장소 관리용 루트 CLI(`./repo`)가 빌드, 테스트, 구조 검사(`doctor`), 코드 검사(`lint`)를 맡는다.
+A Swift monorepo holding several apps and shared packages, edited by several AI agents at once. A root CLI (`./repo`) builds, tests, checks structure (`doctor`) and lints code (`lint`).
 
-## 적용 전
+## Before
 
-- 기능을 고칠 때마다 README, ARCHITECTURE, 에이전트 지시 파일에 설명 문장이 덧붙었다. 같은 내용이 세 문서에 겹쳤고, 폴더 구조 설명은 없었다.
-- 루트 외에 앱마다 에이전트 지시 파일이 있어서 같은 관례를 반복했다.
-- 지시에 이유가 없어서 어떤 규칙을 지워도 되는지 판단할 수 없었다.
+- Every feature change appended sentences to the README, ARCHITECTURE and the instruction file. The same content sat in three documents, and no document described the folder layout.
+- Besides the root, each app had its own instruction file repeating the same conventions.
+- Instructions had no reasons, so no one could tell which rules were safe to delete.
 
-## 적용한 것
+## What was applied
 
-| 단계 | 조항·출처 | 한 일 | 기계 검사 |
+| Step | Clause or source | Change | Mechanical check |
 |---|---|---|---|
-| 에이전트 지시 파일 | R-001, R-002 | 루트 파일 하나에 규칙 4개만 남기고 규칙마다 "(이유: …)"를 붙였다. 17줄이다. 파일 끝에 이 작성 방식의 근거로 R-001, R-002를 적었다 | 루트 밖의 에이전트 지시 파일이 생기면 `doctor`가 실패한다 |
-| 앱별 지시 파일 | R-002 | 앱 폴더의 에이전트 지시 파일 6개를 지웠다. 앱별 사용법은 앱의 README로 옮겼다 | 위와 같다 |
-| ARCHITECTURE | [22] | 목적, 폴더 구조, 의존 방향, 주요 흐름, 경계, 변경할 때 순서로 다시 썼다. 앱 목록과 버전은 적지 않고 조회 명령(`./repo status`)을 적었다 | 필수 제목 네 개(경계, 의존 방향, 주요 흐름, 변경할 때)와 문서 안의 링크를 `doctor`가 검사한다 |
-| 생성 목록 | [20] | README의 버전과 의존 목록을 생성 블록으로 바꾸고, 원본과의 대응을 잠금 파일에 남겼다 | 생성 블록이 원본이나 잠금 파일과 다르면 `doctor`가 실패한다. 커밋 훅은 작업 트리가 아니라 stage된 내용을 기준으로 같은 검사를 한다 |
-| 검사되지 않는 규칙 | 2절 7번 | 의존 순서, 템플릿 사용 같은 규칙을 ARCHITECTURE의 "검사 현황"에 모았다 | 없다(사람이 확인한다) |
-| 작성 방식 | P-001, R-002 | ARCHITECTURE의 "변경할 때" 절에 "기능을 고칠 때 문장을 덧붙이지 않는다"를 적었다 | 없다 |
+| Instruction file | R-001, R-002 | One root file with four rules, each ending in "(Reason: ...)"; 17 lines. The file cites R-001 and R-002 as the source of its writing rules | `doctor` fails when an instruction file appears outside the root |
+| Per-app instruction files | R-002 | Deleted six app-level instruction files; app usage moved to each app's README | Same as above |
+| ARCHITECTURE | [22] | Rewritten as purpose, folder layout, dependency direction, main flows, boundaries, when changing. No app list or versions; the query command (`./repo status`) instead | `doctor` checks four required headings (boundaries, dependency direction, main flows, when changing) and the links in the document |
+| Generated lists | [20] | The version and dependency lists in the README became generated blocks, with their sources pinned in a lock file | `doctor` fails when a generated block differs from its source or the lock file; a commit hook runs the same check on the staged content rather than the working tree |
+| Unchecked rules | Step 7 | Rules such as dependency order and template use are collected under "Check status" in ARCHITECTURE | None; a person verifies them |
+| Writing rules | P-001, R-002 | The "When changing" section of ARCHITECTURE says not to append sentences when a feature changes | None |
 
-## 남은 것
+## Open
 
-- **효과를 측정하지 않았다.** 적용 전후로 지시 파일의 증가 속도나 규칙 삭제 비율을 비교하지 않았다. 그래서 이 사례로는 R-001이나 R-002의 반증 조건을 판정할 수 없다.
-- **한 팀, 한 언어다.** 여러 에이전트가 쓰지만 사람 운영자는 한 명이고 Swift 저장소다.
-- **검사 명령은 이 저장소가 직접 만든 것이다.** 이 가이드북은 새 도구를 만들지 않으므로([decisions/0001](../decisions/0001-adopt-existing-methods.md)), 검사 방식만 참고하고 명령은 가져다 쓰지 않는다.
+- **No effect was measured.** Growth rate and rule deletion ratio were not compared before and after, so this case cannot test the falsifiers of R-001 or R-002.
+- **One team, one language.** Several agents edit the repository, but there is one human operator and the code is Swift.
+- **The check commands are the repository's own.** This guidebook builds no tool ([decision 0001](../decisions/0001-adopt-existing-methods.md)); take the checking approach, not the commands.

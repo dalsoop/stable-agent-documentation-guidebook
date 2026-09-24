@@ -1,47 +1,47 @@
-<!-- 뼈대: 꺾쇠 괄호를 채우고 이 주석을 지운다. 잘 바뀌지 않는 것만 쓴다. 목록, 버전, 옵션, 수치는 넣지 않는다. -->
-# 아키텍처
+<!-- Skeleton: fill in the angle brackets, then delete this comment. Write only what rarely changes. Leave out lists, versions, options and numbers. -->
+# Architecture
 
-<이 저장소가 무엇을 하는 곳인지 한 문단. 누가 쓰는지, 무엇이 들어 있는지.>
+<What this repository is for, in one paragraph: who uses it and what it contains.>
 
-## 폴더 구조
+## Folder layout
 
 ```
-<저장소>/
-├── <폴더>/   <역할 한 줄>
-└── <폴더>/   <역할 한 줄>
+<repository>/
+├── <folder>/   <role in one line>
+└── <folder>/   <role in one line>
 ```
 
-<폴더 안의 규약. 예: 폴더 하나가 앱 하나다. 자주 바뀌는 목록은 여기에 적지 않고, 조회하는 명령을 적는다.>
+<Conventions inside the folders, for example "one folder is one app". Do not list what changes often; name the command that lists it.>
 
-## 의존 방향
+## Dependency direction
 
-<무엇이 무엇을 가져다 쓰는지, 반대 방향은 허용하지 않는다는 것. 실제 의존 관계가 어느 파일에 있는지.>
+<What uses what, that the reverse direction is not allowed, and which files hold the actual dependencies.>
 
-## 주요 흐름
+## Main flows
 
-<새 기능을 넣을 때의 작업 순서. 각 단계에서 쓰는 명령.>
+<The order of work when adding a feature, and the command used at each step.>
 
-## 경계
+## Boundaries
 
-<구조를 지키기 위한 규칙. 무엇이 무엇을 가져다 쓰지 않는가, 어느 도구에 어떤 기능을 두지 않는가.>
+<Rules that keep the structure: what must not use what, and which tool must not hold which feature.>
 
-## 변경할 때
+## When changing
 
-이 절은 이 문서와 README를 고치는 에이전트와 사람이 따를 작성 방식이다. 출처는 https://github.com/dalsoop/stable-agent-documentation-guidebook 의 `guides/new-project.md` 2절이다. 가이드북이 바뀌면 이 목록을 다시 가져온다.
+Rules for agents and people who edit this document or the README. Source: `guides/new-project.md` §2 in https://github.com/dalsoop/stable-agent-documentation-guidebook. Copy the list again when the guidebook changes.
 
-### 작성 방식
+### Writing rules
 
-1. **잘 바뀌지 않는 것만 쓴다.** 위 다섯 절의 내용만 쓰고, 동작 설명은 도구의 도움말에 둔다.
-2. **기능을 고칠 때 문장을 덧붙이지 않는다.** 동작 설명이면 도움말로, 결정의 이유면 결정 기록으로 보낸다.
-3. **코드 요소는 검색할 수 있는 이름으로 부른다.** 링크는 검사가 존재를 확인하는 경우에만 건다.
-4. **코드에서 나오는 목록은 이 문서에 적지 않고, 조회하는 명령을 적는다.** 다른 문서에 목록이 필요하면 생성하고, 생성 결과와 다르면 검사가 실패하게 한다.
-5. **<정한 주기>마다 처음부터 다시 읽고 낡은 문장을 지운다.**
+1. **Write only what rarely changes.** Only the five sections above; behaviour belongs in the tool's help.
+2. **Do not append sentences when a feature changes.** Behaviour goes to the help, reasons to a decision record.
+3. **Name code elements so they can be searched.** Link only what a check verifies exists.
+4. **Keep lists derived from code out of this document and name the command that queries them.** Where another document needs a list, generate it and fail the check when the two differ.
+5. **Re-read from the start every <cycle>, and delete stale sentences.** Last re-read: <date>.
 
-### 검사 현황
+### Check status
 
-- <검사 명령>이 확인하는 것: <필수 제목, 링크, 생성 블록 등>
-- 검사되지 않아 직접 지킬 것: <목록>
+- `<check command>` verifies: <required headings, links, generated blocks, ...>
+- Not checked, verify by hand: <rules>
 
-## 참고 문헌
+## References
 
-<이 문서의 작성 방식이 기대는 출처.>
+<The sources these writing rules rest on.>

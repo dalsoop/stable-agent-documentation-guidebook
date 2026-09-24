@@ -1,12 +1,12 @@
-<!-- 뼈대: 꺾쇠 괄호를 채우고 이 주석을 지운다. 구조 설명과 작업 규칙은 다른 문서에 둔다. -->
-# <저장소 이름>
+<!-- Skeleton: fill in the angle brackets, then delete this comment. Structure and working rules belong in other documents. -->
+# <repository>
 
-<무엇인지 한 문단.> 구조는 [ARCHITECTURE.md](ARCHITECTURE.md), 에이전트 작업 규칙은 [AGENTS.md](AGENTS.md)에 있습니다.
+<What it is, in one paragraph.> Structure is in [ARCHITECTURE.md](ARCHITECTURE.md), and agent working rules are in [AGENTS.md](AGENTS.md).
 
 ```bash
-<처음 실행할 명령>
-<검사 명령>
-<도구> help          # 전체 명령과 세부 동작
+<first command to run>
+<check command>
+<tool> help          # every command and its details
 ```
 
-<처음 실행에서 흔히 막히는 곳이 있으면 한 문단.>
+<One paragraph on where a first run commonly fails, if anywhere.>

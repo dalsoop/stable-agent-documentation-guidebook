@@ -4,31 +4,31 @@ layer: practice
 status: proposed
 certainty: low
 downgraded-for: [risk-of-bias, indirectness]
-falsified-if: "실제 저장소에서 이유를 붙인 지시 파일과 붙이지 않은 지시 파일의 증가 속도나 삭제 비율에 차이가 없다"
+falsified-if: "In real repositories, instruction files with reasons and without reasons show no difference in growth rate or deletion ratio"
 review-by: 2027-03-24
 references: [1]
 superseded-by: null
 ---
 
-# 에이전트 지시마다 이유를 한 줄 붙인다
+# State a reason for every instruction
 
-## 조항
+## Clause
 
-에이전트 지시 파일의 각 지시에 그 지시가 필요한 이유를 한 줄 붙인다.
+Give every instruction in an instruction file a one-line reason.
 
-## 이유
+## Reason
 
-이유가 사라진 지시는 지워도 되는지 판단할 수 없어서 계속 남는다 [1]. 이유가 있으면 나중에 그 이유가 사라졌을 때 지시를 지울 수 있다. 원칙 P-001이 말하는 증가를 줄이는 처방이다.
+An instruction without a reason stays, because no one can tell whether it is safe to delete [1]. With a reason, the instruction can go once the reason does. This is a practice against the sediment described in P-001.
 
-## 반대 근거와 판단
+## Rebuttals
 
-- **반대 근거**: 큰 효과 수치는 지시 2~3개짜리 합성 실험에서 나왔고, 실제 프롬프트 적용 결과는 더 작았으며 LLM이 채점했다 [1].
-  **판단**: 효과 크기는 인용하지 않는다. 다만 비용이 한 줄이고 부작용이 보고되지 않았으므로 시도할 가치는 있다고 본다. 등급은 낮음으로 둔다.
-- **반대 근거**: 이유를 붙이면 파일이 길어진다.
-  **판단**: 파일 크기가 지시 준수율에 영향을 준다는 근거는 이 저장소가 인용하는 연구에 없다. 늘어나는 것은 한 줄이다.
+- **Counter-evidence:** the large effect sizes come from synthetic experiments with two or three instructions; the effect on real prompts was smaller and graded by an LLM [1].
+  **Judgement:** no effect size is cited. The cost is one line and no side effect is reported, so the practice is worth trying. Certainty low.
+- **Counter-evidence:** reasons make the file longer.
+  **Judgement:** no cited study links file length to compliance. The added length is one line per instruction.
 
-## 적용
+## Application
 
 ```markdown
-- 모든 수정 후 `./repo lint`를 실행한다. (이유: 린트가 막는 규칙은 문서에 다시 적지 않기 때문이다)
+- Run `./repo lint` after every change. (Reason: rules the linter enforces are not restated here.)
 ```

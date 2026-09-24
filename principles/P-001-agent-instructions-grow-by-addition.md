@@ -4,26 +4,26 @@ layer: principle
 status: proposed
 certainty: moderate
 downgraded-for: [risk-of-bias]
-falsified-if: "모집단이 다른 대규모 표본에서 에이전트 지시 파일의 변경이 추가보다 삭제 위주로 관찰된다"
+falsified-if: "A large sample from a different population shows instruction-file changes dominated by deletions rather than additions"
 references: [1, 6, 9]
 superseded-by: null
 ---
 
-# 에이전트 지시 파일은 주로 추가로 커진다
+# Instruction files grow mainly by addition
 
-## 조항
+## Clause
 
-에이전트 지시 파일은 시간이 지나면서 주로 지시가 추가되는 방향으로 커지고, 오래된 지시일수록 잘 지워지지 않는다.
+Instruction files grow over time mainly through added instructions, and the older an instruction is, the less likely it is to be deleted. They accumulate sediment.
 
-## 근거
+## Evidence
 
-- 저장소 1,867개의 지시 수명을 추적한 결과, 지시 파일은 수명 동안 크게 커지고 오래된 지시일수록 삭제 위험이 낮았다 [1]. 지시를 추출하는 규칙은 수작업 표본으로 검증되었다.
-- 저장소 1,925개의 에이전트 지시 파일은 잦고 작은 추가로 진화했다 [6].
-- 규칙 변경 이벤트 가운데 확장과 보강이 가장 많았다 [9].
+- Tracking instruction lifetimes in 1,867 repositories, instruction files grew substantially and older instructions had a lower risk of deletion [1]. The instruction extraction rules were validated on a manual sample.
+- 2,303 instruction files in 1,925 repositories evolved through frequent small additions [6].
+- Among rule change events, extensions and reinforcements were the most common [9].
 
-## 반대 근거와 판단
+## Rebuttals
 
-- **반대 근거**: [1]은 단독 저자의 동료 심사 전 논문이고, [9]는 소규모 1인 개발 프로젝트가 많다.
-  **판단**: 세 연구의 저자, 모집단, 방법이 서로 다른데도 같은 방향이 관찰되었다. 그래서 비일관성으로는 등급을 낮추지 않고, 연구 설계의 한계로 한 단계만 낮춘다.
-- **반대 근거**: 커지는 것이 나쁘다는 증거는 이 조항에 포함되지 않는다.
-  **판단**: 이 조항은 현상만 말한다. 커지는 것을 막을지는 관행 조항에서 따로 판단한다.
+- **Counter-evidence:** [1] is a single-author preprint, and [9] consists mostly of small single-developer projects.
+  **Judgement:** the three studies differ in authors, populations and methods, yet point the same way. No downgrade for inconsistency; one downgrade for risk of bias.
+- **Counter-evidence:** the clause does not show that growth is harmful.
+  **Judgement:** it states the phenomenon only. Whether to curb growth is decided by practices.
