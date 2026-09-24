@@ -28,17 +28,17 @@ Each entry tells what this repository takes from the source. It also gives the l
 - Takes: 2,303 context files from 1,925 repositories. The files change through frequent small additions. This repository uses the dataset as its sample of context files.
 - Limits: the population contains only repositories from AIDev with five or more stars.
 
-**[7]** W. S. Tan, M. Wagner, C. Treude, "Detecting Outdated Code Element References in Software Repository Documentation," *Empirical Software Engineering* 29(1), 2024. https://link.springer.com/article/10.1007/s10664-023-10397-6
-- Takes: most of approximately 3,000 GitHub projects had an outdated code reference at a time in their history.
-- Limits: the detection uses regular expressions, and [2] found its false positives again.
+**[7]** W. S. Tan, M. Wagner, C. Treude, "Detecting Outdated Code Element References in Software Repository Documentation," *Empirical Software Engineering* 29, article 5, 2024. https://link.springer.com/article/10.1007/s10664-023-10397-6 · arXiv:2212.01479
+- Takes: the share of projects with at least one outdated code reference at the time of the study. It was 28.9% of 1,000 popular GitHub projects and 5.4% of 2,279 Google projects. The rate grew with project size.
+- Limits: the detection uses regular expressions, and [2] found its false positives again. The abstract says that most projects had one at some time in their history. The two samples above show that the rate depends on the population.
 
 **[8]** W. S. Tan et al., DOCER tool. https://github.com/wesleytanws/DOCER_tool · Paper: arXiv:2307.04291
 - Takes: a GitHub Actions tool that finds outdated code references in each pull request.
 - Limits: it has the false positives that [2] reports.
 
 **[9]** G. Cai, R. Li, P. Liang, Z. Li, M. Shahin, "Rule Taxonomy and Evolution in AI IDEs: A Mining and Survey Study," arXiv:2606.12231, 2026. https://arxiv.org/abs/2606.12231
-- Takes: most rule changes were extensions and reinforcements. The study also saw higher compliance after rule fixes. Only the withdrawn R-003 used that result, and this repository does not cite it now.
-- Limits: correlation, not cause. An LLM graded compliance. Most projects are small TypeScript web projects with one developer.
+- Takes: in 7,310 rules from 83 open source projects, the most frequent changes were context expansions (29.17%) and enrichments (26.59%). The rise of compliance after rule updates was used only by the withdrawn R-003, and this repository does not cite it now.
+- Limits: the files are rules of AI IDEs, not context files, so their use for context files is indirect. Correlation, not cause. An LLM graded compliance. Most projects are small TypeScript web projects with one developer.
 
 ## Samples and evidence
 
@@ -128,3 +128,7 @@ Each entry tells what this repository takes from the source. It also gives the l
 **[31]** D. Procida, "Diátaxis." https://diataxis.fr/
 - Takes: the type of a document follows from what its reader tries to do: learn, do a task, look up a fact or understand.
 - Limits: a framework from a practitioner, with no empirical evaluation. It was written for product documentation, not for context files.
+
+**[32]** A. Iorio, F. A. Spencer, M. Falavigna et al., "Use of GRADE for assessment of evidence about prognosis: rating confidence in estimates of event rates in broad categories of patients," *BMJ* 350, h870, 2015. https://researchonline.lshtm.ac.uk/id/eprint/2131850/1/bmj.h870.full.pdf
+- Takes: for evidence about how often an event occurs in a population, a body of observational studies starts at high certainty.
+- Limits: written for clinical prognosis. Its use for phenomena in software repositories is this repository's judgment.

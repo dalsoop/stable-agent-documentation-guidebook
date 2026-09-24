@@ -20,7 +20,7 @@ A Swift monorepo with several apps and shared packages. Several AI agents edit i
 | Context files of apps | R-002 | Six context files of apps were deleted. The usage of each app moved to its README | Same as above |
 | ARCHITECTURE | [22] | New sections: purpose, folder layout, dependency direction, main flows, boundaries and rules for change. No list of apps or versions, but the query command `./repo status` | `doctor` verifies four required headings and the links in the document |
 | Generated lists | [20] | The lists of versions and dependencies in the README are generated blocks. A lock file records their sources | `doctor` fails if a generated block is different from its source or the lock file. A commit hook does the same check on the staged content, not on the working tree |
-| Rules with no check | Step 10 | The "Check status" section of ARCHITECTURE lists rules such as dependency order and template use | None: a person verifies them |
+| Rules with no check | Step 11 | The "Check status" section of ARCHITECTURE lists rules such as dependency order and template use | None: a person verifies them |
 | Rules for change | P-001, R-002 | The rules for change in ARCHITECTURE tell people not to add sentences when a feature changes | None |
 
 ## Limits

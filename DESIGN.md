@@ -6,7 +6,7 @@ This document gives the design of the guidebook. The guidebook tells how to writ
 
 - **Documents:** README, ARCHITECTURE, context files and CONTRIBUTING.
 - **In scope:** growth by addition and outdated references in these documents, the rules and checks that prevent them, and reader tests of single documents (R-004).
-- **Out of scope:** the general effect of context files on the task success of agents. Studies do not agree [3] [4] [5]. This repository only cites them.
+- **Out of scope:** the general effect of context files on the task success of agents. [3] and [5] found no reliable gain in correctness, and [4] measured only time and tokens. This repository only cites them.
 
 ## 2. Layers and records
 
@@ -15,11 +15,11 @@ A higher layer changes less frequently than a lower layer. A lower layer obeys t
 | Layer | Location | Entry condition |
 |---|---|---|
 | Sample integrity invariant | §3 | It does not change |
-| Principle | `principles/` | The certainty is moderate or higher. At least two studies with samples that do not overlap show the same direction |
+| Principle | `principles/` | The certainty is moderate or higher. At least two different studies show the same direction |
 | Practice | `practices/` | The clause has a certainty, a falsification criterion and a review date |
-| Guide | `guides/` | The guide cites only clause ids and reference numbers. It marks each step that has no clause or reference. Each step ends with a completion criterion that a reader can verify [23]. A case study is not evidence |
+| Guide | `guides/` | The guide cites clause ids, reference numbers and sections of this document. It marks each step that has none of them. Each step ends with a completion criterion that a reader can verify [23]. A case study is not evidence |
 
-If two studies have the same authors or methods, their errors can overlap. Write this in a refutation, and use it when you set the certainty.
+Two studies are different if they have no author in common and use different methods. Then their errors are less likely to be the same. If their samples can overlap, write this in a refutation, and use it when you set the certainty.
 
 Two records are not layers. You can only add to them. To change a record, write a new record that replaces it.
 
@@ -50,7 +50,11 @@ This invariant applies to our own measurements and to cited studies. Use these a
 
 ## 4. Certainty
 
-Each clause has a GRADE certainty [12]. Each clause also lists the domains that lowered its certainty.
+This repository adapts GRADE [12]. Each clause has a certainty and lists the domains that lowered it. Use this procedure, so that a second person gets the same result:
+
+1. Select the start level. A principle states how often a phenomenon occurs, so its evidence starts at high. GRADE does the same for evidence about how often an event occurs [32]. A practice states the effect of a prescription. Its evidence starts at high for controlled experiments and at low for observational studies, surveys and essays.
+2. Lower the level by one for each domain of §3 with a serious concern.
+3. Do not raise the level. GRADE has reasons to raise it, but this repository does not use them.
 
 | Certainty | Meaning |
 |---|---|
@@ -122,6 +126,7 @@ Withdrawn clauses:
 - "AGENTS.md is a file for efficiency" (a prescription of design v1, 2026-09-24). Its source [4] examined one agent and did not measure correctness. Also, its conditions were different from [3]. This clause is older than the decision records, so its reason stays here.
 - R-003 "Change rules when the agent makes an error" (2026-09-25): [decision 0003](decisions/0003-withdraw-r003-p003.md).
 - P-003 "No evidence shows that repository overviews increase the task success of agents" (2026-09-25): [decision 0003](decisions/0003-withdraw-r003-p003.md).
+- P-002 "Repository documents frequently contain outdated references" (2026-09-25): [decision 0006](decisions/0006-withdraw-p002-adapt-grade.md).
 
 ## 10. Pilot snapshot
 
@@ -133,10 +138,10 @@ Each language has one style guide. A file follows the style guide of its languag
 
 | Language | Files | Style guide | Mechanical check |
 |---|---|---|---|
-| English | All originals | ASD-STE100 Simplified Technical English [24] | No Hangul. Vale [29]: 25 words or fewer in a description sentence, 20 or fewer in a procedure sentence. Vale does not check table cells |
+| English | All originals | ASD-STE100 Simplified Technical English [24] | No Hangul. Vale [29]: 25 words or fewer in each sentence, and 20 or fewer in `AGENTS.md`, `guides/new-project.md` and `guides/templates/`. A reviewer checks table cells and procedure sentences in other files |
 | Korean | Translations with the name `<name>.ko.md` | fluent-korean [25] | No em dash |
 
-A translation is a separate file next to its original. If the two are different, the original is correct. The first line of a translation records the SHA-256 hash of its original. The check fails when the original changes and the translation does not. This is the method of [21]. To add a language, add a row to this table and write a decision record.
+A translation of `<name>.md` is `<name>.ko.md` in the same folder. If the two are different, the original is correct. The first line of a translation records the SHA-256 hash of its original. The check fails when the original changed after the recorded hash. It cannot show that the text of the translation follows the original. This is the method of [21]. To add a language, add a row to this table and write a decision record.
 
 ## 12. Open questions
 

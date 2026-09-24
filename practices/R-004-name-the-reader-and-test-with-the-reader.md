@@ -14,7 +14,7 @@ superseded-by: null
 
 ## Clause
 
-For each repository document, name its reader and its reader task. The reader task is what the reader must be able to do after reading. Then do a reader test: give a new reader only that document and the reader task, and examine the result.
+For each repository document, name its reader and its reader task. The reader task is what the reader must be able to do after reading. Then do a reader test: give a new reader the repository, the document as the start and the reader task, and examine the result. The reader can follow the links of the document.
 
 ## Reason
 
@@ -25,17 +25,14 @@ A reader test checks one document for its own reader. It makes no general claim 
 ## Refutations
 
 - **Counter-evidence:** [30] and [31] are practitioner sources with no evaluation. Also, [3] and [5] measured the effect of whole context files, not the effect of a named reader.
-  **Judgment:** the certainty is very low for risk of bias, indirectness and imprecision. The clause stays proposed so that repositories can collect the comparison that the falsification criterion needs.
+  **Judgment:** the evidence starts at low, and indirectness lowers it to very low (DESIGN.md §4). The clause stays proposed so that repositories can collect the comparison that the falsification criterion needs.
 - **Counter-evidence:** a reader test with an agent does not always give the same result. One run can pass or fail by chance.
   **Judgment:** run the test more than once, and record each result. A document that fails one run needs work.
 - **Counter-evidence:** a test with human readers costs time.
   **Judgment:** test human readers at each review cycle, not at each change. Agent readers cost less, so test them when the document changes.
+- **Counter-evidence:** most documents link to other documents, so a test with only one file is not realistic.
+  **Judgment:** the reader starts at the document and can follow its links, as a real reader does. A document that needs a link to do its task must contain that link.
 
 ## Application
 
-| Document | Reader | Reader task |
-|---|---|---|
-| README | A person or an agent that sees the repository for the first time | Tell what the repository is, run it once and find the next document |
-| AGENTS.md | A coding agent before each task | Make a change that obeys the conventions, with no question to a person |
-
-A reader test for an agent reader: start a new session with no other context. Give it only the document and the reader task. The document passes if the agent does the task.
+[guides/new-project.md](../guides/new-project.md) §1 gives a table of readers and reader tasks, and step 13 gives the reader test.

@@ -32,7 +32,7 @@ flowchart TB
 
 ## Rules for change
 
-These rules are for agents and people who change this document or the README. Source: `guides/new-project.md` §3 and reference [22] in https://github.com/dalsoop/stable-agent-documentation-guidebook. Copy the rules again when the guidebook changes.
+Agents and people who change this document or the README follow `guides/new-project.md` §3 of https://github.com/dalsoop/stable-agent-documentation-guidebook at <commit or tag>. This section keeps only what belongs to this repository.
 
 ### Readers
 
@@ -40,13 +40,13 @@ These rules are for agents and people who change this document or the README. So
 |---|---|---|---|
 | <document> | <who reads it> | <what the reader can do after reading> | <date and result> |
 
-### Rules
+### Exceptions
 
-1. **Write only information that changes rarely.** Write only the five sections above. Put behavior in the help of the tool.
-2. **Do not add sentences when a feature changes.** Put behavior in the help and reasons in a decision record in `decisions/`.
-3. **Give code elements names that a reader can search for.** Add a link only if a check verifies the target.
-4. **Do not put lists from code in this document.** Give the command that shows them. If a different document needs a list, generate it. Make the check fail when the two are different.
-5. **Read this document again every <interval>.** Delete outdated sentences and sentences that do not change what a reader does. Last review: <date>.
+<Rules of the guide that this repository does not follow, each with a reason. Delete this section if there are none.>
+
+### Review
+
+Read all documents again every <interval>. Last review: <date>.
 
 ### Check status
 
@@ -55,4 +55,4 @@ These rules are for agents and people who change this document or the README. So
 
 ## References
 
-<The sources of these rules, for example the guidebook and the references it cites.>
+<The sources of the rules in this document, for example the guidebook at a commit.>
