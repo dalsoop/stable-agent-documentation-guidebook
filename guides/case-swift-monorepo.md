@@ -26,6 +26,6 @@ A Swift monorepo with several apps and shared packages. Several AI agents edit i
 ## Limits
 
 - **No measurement of effect.** Nobody compared the growth rate or the ratio of rule deletions before and after. Thus this case study cannot test the falsification criteria of R-001 or R-002.
-- **No readers and no reader test.** The case study named no reader for each document and did no reader test (R-004). Thus nobody knows if each document does its job for its reader.
+- **One reader test, for one document.** The context file passed a reader test with two agents on 2026-09-25 ([snapshot](../snapshots/2026-09-25-reader-test/README.md)). The test found two defects in it. The other documents have no named reader and no reader test yet.
 - **One team and one language.** Several agents edit the repository, but only one person operates it. The code is Swift.
 - **The check commands belong to the repository.** This guidebook makes no tools ([decision 0001](../decisions/0001-adopt-existing-methods.md)). Use the method of the checks, not the commands.

@@ -15,14 +15,14 @@ Decision 0004 proposed four clauses. Since then, decision 0006 withdrew P-002, a
 | P-001 Context files grow mainly by addition | moderate | Met: two different direct studies [1] [6], and one indirect study [9] | Adopt |
 | R-001 Give a reason for each instruction | low | Met: a falsification criterion and a review date | Adopt |
 | R-002 Keep only the conventions of the repository in context files | low | Met | Adopt |
-| R-004 Name the reader of each document, and test the document with that reader | very low | Met | Keep proposed until one repository records a reader test |
+| R-004 Name the reader of each document, and test the document with that reader | very low | Met | Adopt. One repository recorded a reader test ([snapshot 2026-09-25](../snapshots/2026-09-25-reader-test/README.md)) |
 
 ## Alternatives considered
 
-- **Adopt R-004 now.** Rejected: its certainty is very low, and no repository has done a reader test yet. One recorded test is the least evidence to adopt it.
+- **Keep R-004 proposed.** Rejected: the condition was one recorded reader test, and the snapshot of 2026-09-25 records one. The test also found two real defects. The certainty stays very low, and the clause states it.
 - **Adopt only clauses with the certainty moderate or higher.** Rejected: the practice layer accepts a low certainty. Without the low clauses, R-001 and R-002 have no effect, and they are the core of the guide.
 
 ## Consequences
 
-- If a person accepts this decision, set `status: adopted` in P-001, R-001 and R-002.
+- If a person accepts this decision, set `status: adopted` in P-001, R-001, R-002 and R-004.
 - R-001 and R-002 keep their review date, 2027-03-24.
