@@ -85,3 +85,7 @@
 **[20]** N. Batchelder, Cog. https://nedbatchelder.com/code/cog/index
 
 **[21]** rust-analyzer, `xtask/src/tidy.rs`의 `check_lsp_extensions_docs`. https://github.com/rust-lang/rust-analyzer/blob/master/xtask/src/tidy.rs
+
+**[22]** A. Kladov (matklad), "ARCHITECTURE.md," 2021. https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html
+- 가져다 쓰는 것: ARCHITECTURE 문서의 구성(개요, 코드 지도, 불변식과 경계). 자주 바뀌지 않는 것만 쓰고 코드와 동기화하려 하지 않으며, 대신 한 해에 몇 번 다시 읽는다는 운영 방식. 파일과 타입은 링크 대신 검색할 수 있는 이름으로 부른다는 방식
+- 한계: 실무자의 글이며 실증 평가가 없다. GRADE로는 전문가 의견에 해당한다
