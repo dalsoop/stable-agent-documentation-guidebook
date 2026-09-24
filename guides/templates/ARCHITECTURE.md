@@ -15,7 +15,12 @@
 
 ## Dependency direction
 
-<Which parts use which parts. The reverse direction is not permitted. The files that contain the real dependencies.>
+```mermaid
+flowchart TB
+  App[<app>] --> Pkg[<shared package>] --> Base[<base package>]
+```
+
+<The reverse direction is not permitted. Name the files that contain the real dependencies.>
 
 ## Main flows
 
@@ -23,19 +28,19 @@
 
 ## Boundaries
 
-<The rules that keep the structure: which part must not use which part, and which tool must not contain which feature.>
+<The rules that keep the structure. Tell which part must not use which part, and which tool must not contain which feature.>
 
 ## Rules for change
 
-These rules are for agents and people who change this document or the README. Source: `guides/new-project.md` §2 in https://github.com/dalsoop/stable-agent-documentation-guidebook. Copy the rules again when the guidebook changes.
+These rules are for agents and people who change this document or the README. Source: `guides/new-project.md` §2 and reference [22] in https://github.com/dalsoop/stable-agent-documentation-guidebook. Copy the rules again when the guidebook changes.
 
 ### Rules
 
 1. **Write only information that changes rarely.** Write only the five sections above. Put behavior in the help of the tool.
-2. **Do not add sentences when a feature changes.** Put behavior in the help and reasons in a decision record.
+2. **Do not add sentences when a feature changes.** Put behavior in the help and reasons in a decision record in `decisions/`.
 3. **Give code elements names that a reader can search for.** Add a link only if a check verifies the target.
 4. **Do not put lists from code in this document.** Give the command that shows them. If a different document needs a list, generate it. Make the check fail when the two are different.
-5. **Read this document again every <interval>, and delete stale sentences.** Last review: <date>.
+5. **Read this document again every <interval>.** Delete outdated sentences and sentences that do not change what a reader does. Last review: <date>.
 
 ### Check status
 
@@ -44,4 +49,4 @@ These rules are for agents and people who change this document or the README. So
 
 ## References
 
-<The sources of these rules.>
+<The sources of these rules, for example the guidebook and the references it cites.>

@@ -21,5 +21,5 @@ The guidebook is a guide for application, not new research. Metrics, evidence as
 
 - The metrics, gate thresholds and planned collector of v1 are removed.
 - The pilot snapshot stays as a record, but the guidebook does not cite it as evidence.
-- Each clause has a certainty, the domains that lowered it and a falsifier.
+- Each clause has a certainty, the domains that lowered it and a falsification criterion.
 - If an available tool cannot do a check, a new decision record decides whether to make a tool.

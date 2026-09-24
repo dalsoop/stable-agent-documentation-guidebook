@@ -10,13 +10,13 @@ Clauses tell why, and each clause has its own file. But no document told a perso
 
 ## Decision
 
-Add `guides/` as a layer below practices. It contains the order (`new-project.md`), skeleton files (`templates/`) and cases. A guide makes no claim of its own. It cites clause ids and reference numbers, and it marks each step that has neither. A case is not evidence.
+Add `guides/` as a layer below practices. It contains the order (`new-project.md`), skeleton files (`templates/`) and case studies. A guide makes no claim of its own. It cites clause ids and reference numbers, and it marks each step that has neither. A case is not evidence.
 
 ## Alternatives considered
 
 - **Put the order in DESIGN.md.** Rejected: DESIGN.md tells how to make clauses. The order changes when clauses change, so it must be in a layer that changes more frequently.
 - **Make the order a practice.** Rejected: no study gives a certainty for the order. As a clause, it would look like it has evidence.
-- **Put cases in snapshots.** Rejected: snapshots contain measurements, and a case measures nothing.
+- **Put case studies in snapshots.** Rejected: snapshots contain measurements, and a case study measures nothing.
 
 ## Consequences
 

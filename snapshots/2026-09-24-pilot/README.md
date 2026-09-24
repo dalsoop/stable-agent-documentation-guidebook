@@ -2,7 +2,7 @@
 
 This is an exploratory measurement with shell commands and `git`. It was done before measurement model v1 was final. It did not go through the gate for sample integrity. Thus **no practice or principle uses its results as evidence.** It is only an input to improve measurement model v1.
 
-[Decision 0005](../../decisions/0005-writing-standard-per-language.md) changed its language. The content and the data files did not change.
+[Decision 0005](../../decisions/0005-style-guide-per-language.md) changed its language. The content and the data files did not change.
 
 ## Conditions
 

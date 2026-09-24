@@ -1,10 +1,13 @@
-name: writing-standards
+name: style-guides
 
 # The mechanical checks of DESIGN.md §11 (decisions/0005).
 
 on:
   push:
   pull_request:
+
+env:
+  VALE_VERSION: 3.22.0
 
 jobs:
   check:
@@ -19,24 +22,14 @@ jobs:
             close ARGV if eof;
             END { $? = $bad ? 1 : 0 }'
 
-      - name: "English: no prose sentence longer than 25 words (STE)"
+      - name: "English: STE sentence length with Vale (.vale.ini)"
         run: |
-          git ls-files -z -- '*.md' ':!:*.ko.md' | xargs -0 perl -CSD -ne '
-            if ($ARGV ne $file) { $file = $ARGV; $n = 0; $front = 0; $code = 0 }
-            $n++;
-            if ($n == 1 && /^---\s*$/) { $front = 1; next }
-            if ($front) { $front = 0 if /^---\s*$/; next }
-            if (/^\s*```/) { $code = !$code; next }
-            next if $code || /^\s*\|/ || /^\s*\*\*\[\d+\]\*\*/ || /^\s*<!--/;
-            s/`[^`]*`/X/g;
-            s/\[([^\]]*)\]\([^)]*\)/$1/g;
-            s{https?://\S+}{URL}g;
-            s/\*+//g;
-            for my $s (split /(?<=[.!?])\s+/) {
-              my @w = grep { /\w/ } split /\s+/, $s;
-              if (@w > 25) { print "$ARGV:$n: ", scalar(@w), " words: $s\n"; $bad = 1 }
-            }
-            END { $? = $bad ? 1 : 0 }'
+          base="https://github.com/errata-ai/vale/releases/download/v${VALE_VERSION}"
+          curl -sSLO "${base}/vale_${VALE_VERSION}_Linux_64-bit.tar.gz"
+          curl -sSLO "${base}/vale_${VALE_VERSION}_checksums.txt"
+          sha256sum -c --ignore-missing "vale_${VALE_VERSION}_checksums.txt"
+          tar xzf "vale_${VALE_VERSION}_Linux_64-bit.tar.gz" vale
+          git ls-files -z -- '*.md' ':!:*.ko.md' | xargs -0 ./vale --no-wrap --output=line
 
       - name: "Korean: no em dash (fluent-korean)"
         run: |
@@ -56,7 +49,7 @@ jobs:
               unless ($src) { print "$t: the first line must be <!-- source: <file> sha256: <hash> -->\n"; $bad = 1; next }
               (my $dir = $t) =~ s{[^/]*$}{};
               my $path = $dir . $src;
-              open my $sf, "<:raw", $path or do { print "$t: source file $path not found\n"; $bad = 1; next };
+              open my $sf, "<:raw", $path or do { print "$t: original $path not found\n"; $bad = 1; next };
               local $/;
               my $got = sha256_hex(<$sf>);
               close $sf;
