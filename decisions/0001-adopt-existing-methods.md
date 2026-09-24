@@ -1,25 +1,25 @@
-# 1. 새로 만들지 않고 기존 연구와 도구를 가져다 쓴다
+# 1. Use available research and tools, and make no new tools
 
-## 상태
+## Status
 
-채택 (2026-09-24). 설계 v1을 대체한다.
+Accepted (2026-09-24). This decision replaces design v1. Decision 0005 changed its language.
 
-## 맥락
+## Context
 
-설계 v1은 상대 변경률, 증감 방향, 참조 유효율 같은 지표와 관문 기준값을 직접 정의하고, 측정 도구도 새로 만들 계획이었다. 파일럿 측정에서 직접 정의한 참조 검사는 오탐을 냈고, 역할을 섞은 결론은 층으로 나누자 방향이 뒤집혔다. 같은 문제를 이미 다룬 최근 연구, 공개 데이터, 운영 중인 도구가 있었다.
+Design v1 defined its own metrics and gate thresholds: the relative rate of change, the direction of growth and the validity of references. It also planned a new tool for measurements. In the pilot, the reference check of v1 gave false positives. Also, a conclusion from a sample with mixed document roles changed direction when we divided the sample by role. Recent studies, public datasets and available tools already examined the same problems.
 
-## 결정
+## Decision
 
-가이드북은 새 연구가 아니라 적용 안내서로 만든다. 지표, 근거 평가, 표집, 결정 기록 형식, 검사 도구는 모두 [REFERENCES.md](../REFERENCES.md)의 출처에서 가져온다. 표본 무결성 불변식은 유지하되, 판정은 GRADE [12]와 표집 지침 [10] [11]으로 한다.
+The guidebook is a guide for application, not new research. Metrics, evidence assessment, samples, the format of decision records and check tools come from the sources in [REFERENCES.md](../REFERENCES.md). The sample integrity invariant stays. GRADE [12] and the guidelines for samples [10] [11] examine it.
 
-## 검토한 대안
+## Alternatives considered
 
-- **v1처럼 지표와 도구를 직접 만든다.** 기각했다. 검증되지 않은 지표를 쓰게 되고, 같은 문제를 다룬 연구와 비교할 수 없다.
-- **연구를 인용만 하고 근거 등급은 매기지 않는다.** 기각했다. 인용하려던 연구 대부분이 소표본, 한 생태계 한정, 합성 실험, 동료 심사 전이라는 한계를 가졌다. 등급 없이 인용하면 약한 근거가 원칙처럼 읽힌다.
+- **Make metrics and tools as in v1.** Rejected: the metrics would have no validation. Also, a comparison with studies of the same problem would not be possible.
+- **Cite studies without a certainty.** Rejected: most sources had small samples, one ecosystem, synthetic experiments or no peer review. Without a certainty, a weak source looks like a principle.
 
-## 결과
+## Consequences
 
-- 직접 정의한 지표와 관문 기준값, 새 수집기 계획을 없앤다.
-- 파일럿 스냅샷은 기록으로 남기되 근거로 인용하지 않는다.
-- 모든 조항에 근거 등급, 등급을 낮춘 영역, 반증 조건을 붙인다.
-- 기존 도구로 채울 수 없는 검사가 생기면, 그때 새 결정 기록으로 도구를 만들지 판단한다.
+- The metrics, gate thresholds and planned collector of v1 are removed.
+- The pilot snapshot stays as a record, but the guidebook does not cite it as evidence.
+- Each clause has a certainty, the domains that lowered it and a falsification criterion.
+- If an available tool cannot do a check, a new decision record decides whether to make a tool.

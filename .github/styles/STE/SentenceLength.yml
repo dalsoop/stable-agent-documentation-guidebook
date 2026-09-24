@@ -1,0 +1,6 @@
+extends: occurrence
+message: "STE: write description sentences of 25 words or fewer."
+level: error
+scope: sentence
+max: 25
+token: \S*\w\S*

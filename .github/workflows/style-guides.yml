@@ -1,0 +1,58 @@
+name: style-guides
+
+# The mechanical checks of DESIGN.md §11 (decisions/0005).
+
+on:
+  push:
+  pull_request:
+
+env:
+  VALE_VERSION: 3.22.0
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "English: no Hangul outside translations"
+        run: |
+          git ls-files -z -- . ':!:*.ko.md' | xargs -0 perl -CSD -ne '
+            if (/[\x{1100}-\x{11FF}\x{3130}-\x{318F}\x{AC00}-\x{D7A3}]/) { print "$ARGV:$.: $_"; $bad = 1 }
+            close ARGV if eof;
+            END { $? = $bad ? 1 : 0 }'
+
+      - name: "English: STE sentence length with Vale (.vale.ini)"
+        run: |
+          base="https://github.com/errata-ai/vale/releases/download/v${VALE_VERSION}"
+          curl -sSLO "${base}/vale_${VALE_VERSION}_Linux_64-bit.tar.gz"
+          curl -sSLO "${base}/vale_${VALE_VERSION}_checksums.txt"
+          sha256sum -c --ignore-missing "vale_${VALE_VERSION}_checksums.txt"
+          tar xzf "vale_${VALE_VERSION}_Linux_64-bit.tar.gz" vale
+          git ls-files -z -- '*.md' ':!:*.ko.md' | xargs -0 ./vale --no-wrap --output=line
+
+      - name: "Korean: no em dash (fluent-korean)"
+        run: |
+          git ls-files -z -- '*.ko.md' | xargs -0 -r perl -CSD -ne '
+            if (/\x{2014}/) { print "$ARGV:$.: $_"; $bad = 1 }
+            close ARGV if eof;
+            END { $? = $bad ? 1 : 0 }'
+
+      - name: "Translations: source hash is current"
+        run: |
+          git ls-files -z -- '*.ko.md' | xargs -0 -r perl -MDigest::SHA=sha256_hex -e '
+            for my $t (@ARGV) {
+              open my $fh, "<", $t or die "$t: $!";
+              my $first = <$fh>;
+              close $fh;
+              my ($src, $want) = $first =~ /<!--\s*source:\s*(\S+)\s+sha256:\s*([0-9a-f]{64})\s*-->/;
+              unless ($src) { print "$t: the first line must be <!-- source: <file> sha256: <hash> -->\n"; $bad = 1; next }
+              (my $dir = $t) =~ s{[^/]*$}{};
+              my $path = $dir . $src;
+              open my $sf, "<:raw", $path or do { print "$t: original $path not found\n"; $bad = 1; next };
+              local $/;
+              my $got = sha256_hex(<$sf>);
+              close $sf;
+              if ($got ne $want) { print "$t: $path changed (sha256 $got). Update the translation and its hash.\n"; $bad = 1 }
+            }
+            exit($bad ? 1 : 0)'

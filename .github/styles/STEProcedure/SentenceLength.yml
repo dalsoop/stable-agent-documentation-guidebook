@@ -1,0 +1,6 @@
+extends: occurrence
+message: "STE: write procedure sentences of 20 words or fewer."
+level: error
+scope: sentence
+max: 20
+token: \S*\w\S*

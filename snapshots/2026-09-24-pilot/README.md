@@ -1,41 +1,43 @@
-# 파일럿 스냅샷 2026-09-24
+# Pilot snapshot 2026-09-24
 
-측정 모델 v1이 확정되기 전에 셸 명령과 `git`만으로 수행한 탐색 측정이다. 표본 무결성 관문을 거치지 않았으므로 **이 스냅샷의 결과는 관행이나 원칙의 근거로 쓰지 않는다.** 측정 모델 v1을 다듬는 입력으로만 쓴다.
+This is an exploratory measurement with shell commands and `git`. It was done before measurement model v1 was final. It did not go through the gate for sample integrity. Thus **no practice or principle uses its results as evidence.** It is only an input to improve measurement model v1.
 
-## 조건
+[Decision 0005](../../decisions/0005-style-guide-per-language.md) changed its language. The content and the data files did not change.
 
-- 패널: `panel.txt`의 26개 저장소. 관문 1(품질) 이전에 이름을 보고 고른 표본이다.
-- 기준일: 2026-09-24, 2025-09-24(소급). 각 기준일에 측정한 커밋은 `heads.tsv`에 있다.
-- 관측 기간: 기준일 이전 365일
-- 커밋 수: `--no-merges` 기준
-- 역할 판정: 파일 이름 규칙으로 찾은 뒤, 심링크와 `@파일` 한 줄 포인터를 따라가서 정본 파일 하나를 잰다.
+## Conditions
 
-## `records.tsv` 열
+- Panel: the 26 repositories in `panel.txt`. A person selected them by name before gate 1 (quality).
+- Reference dates: 2026-09-24 and 2025-09-24 (retroactive). `heads.tsv` gives the commit at each date.
+- Observation window: the 365 days before each reference date.
+- Commit counts: with `--no-merges`.
+- Role detection: find files by their name rules. Then follow symlinks and one-line `@file` pointers, and measure the one canonical file.
 
-| # | 열 | 뜻 |
+## Columns of `records.tsv`
+
+| # | Column | Meaning |
 |---|---|---|
-| 1 | as_of | 기준일 |
-| 2 | repo | 저장소 |
+| 1 | as_of | Reference date |
+| 2 | repo | Repository |
 | 3 | role | intro · arch · agent · contrib |
-| 4 | path | 역할로 찾은 파일 |
-| 5 | canonical | 별칭을 따라간 정본 파일 |
-| 6 | lines | 정본의 줄 수 |
-| 7 | doc_commits | 관측 기간에 정본을 바꾼 커밋 수 |
-| 8 | repo_commits | 관측 기간의 저장소 전체 커밋 수 |
-| 9 | lines_added | 관측 기간에 추가된 줄 |
-| 10 | lines_deleted | 관측 기간에 삭제된 줄 |
-| 11 | code_lines | 코드 블록 안의 줄 |
-| 12 | command_lines | 코드 블록 안에서 명령으로 시작하는 줄 |
-| 13 | numeric_tokens | 코드 블록 밖의 버전·수치+단위 개수 |
-| 14 | headings | 제목 줄 수 |
-| 15 | links | Markdown 링크 수 |
-| 16 | backtick_refs | 백틱 안의 경로 형태 토큰 수 (보정 전) |
-| 17 | backtick_refs_valid | 그중 기준일 트리에 있는 것 (보정 전) |
+| 4 | path | File that the role detection found |
+| 5 | canonical | Canonical file after the aliases |
+| 6 | lines | Number of lines in the canonical file |
+| 7 | doc_commits | Commits that changed the canonical file in the window |
+| 8 | repo_commits | All commits of the repository in the window |
+| 9 | lines_added | Lines added in the window |
+| 10 | lines_deleted | Lines deleted in the window |
+| 11 | code_lines | Lines in code blocks |
+| 12 | command_lines | Lines in code blocks that start with a command |
+| 13 | numeric_tokens | Tokens outside code blocks that are versions or numbers with units |
+| 14 | headings | Heading lines |
+| 15 | links | Markdown links |
+| 16 | backtick_refs | Tokens in backticks that look like paths (not corrected) |
+| 17 | backtick_refs_valid | Tokens from column 16 that exist in the tree at the reference date (not corrected) |
 
-`repo-references-2026.tsv`는 16·17열을 보정한 값이다. 첫 경로 구간이 저장소 최상위에 있는 토큰만 저장소 참조로 센다.
+`repo-references-2026.tsv` contains corrected values for columns 16 and 17. A token counts as a repository reference only if its first path segment exists at the repository root.
 
-## 알려진 결함
+## Known defects
 
-- 명령 탐지가 코드 블록 안만 본다. 본문 백틱 안의 명령을 놓친다.
-- 16·17열은 실행 시 경로와 예제 파일 이름을 참조로 잘못 센다.
-- 역할 판정이 파일 이름 규칙에 의존한다. `docs/` 아래의 다른 이름을 가진 구조 설명은 놓친다.
+- The command detection examines only code blocks. It does not find commands in inline backticks.
+- Columns 16 and 17 count runtime paths and names of example files as references.
+- The role detection uses file name rules. It does not find structure descriptions with other names under `docs/`.

@@ -4,23 +4,25 @@ layer: principle
 status: proposed
 certainty: moderate
 downgraded-for: [imprecision]
-falsified-if: "오탐을 수작업으로 걸러낸 대규모 표본에서 낡은 코드 참조를 가진 저장소가 드물게 관찰된다"
+falsified-if: "A large sample, with false positives removed by a person, shows outdated references in few repositories"
 references: [2, 7]
 superseded-by: null
 ---
 
-# 저장소 문서에는 낡은 코드 참조가 흔하다
+# Repository documents frequently contain outdated references
 
-## 조항
+## Clause
 
-저장소 문서와 에이전트 지시 파일에는 코드에서 이미 사라진 요소를 가리키는 참조가 흔하게 남는다.
+Repository documents, which include context files, frequently keep references to code elements that do not exist now.
 
-## 근거
+## Evidence
 
-- GitHub 프로젝트 3,000여 개 가운데 대부분이 이력 중 한 번은 낡은 코드 참조를 가졌다 [7].
-- 같은 계열의 검사를 에이전트 지시 파일에 적용한 결과, 상당수 저장소에서 낡은 참조가 발견되었다 [2].
+- Most of approximately 3,000 GitHub projects had an outdated reference at a time in their history [7].
+- The same type of check found outdated references in the context files of many repositories [2].
 
-## 반대 근거와 판단
+## Refutations
 
-- **반대 근거**: [2]에서 수작업으로 확인한 표본의 약 3분의 1이 오탐이거나 애매했다. 저자도 수치를 가능성 신호로만 규정했다.
-  **판단**: 오탐을 빼도 낡은 참조는 남는다. 따라서 현상 자체는 받아들이되, 빈도 수치는 인용하지 않고 부정확성으로 등급을 낮춘다.
+- **Counter-evidence:** many findings that a person examined in [2] were false positives or ambiguous. The limits of [2] give the figure. The authors call their figures a possible signal only.
+  **Judgment:** outdated references stay after the removal of false positives. Thus the clause accepts the phenomenon but cites no frequency. The certainty is lower for imprecision.
+- **Counter-evidence:** the two studies have one author in common, and [2] uses the type of check from [7]. Thus they are not independent observations.
+  **Judgment:** their samples do not overlap: [7] examined project documentation, and [2] examined context files. A shared method can cause false positives, and the previous refutation already lowered the certainty for imprecision. Thus the two studies meet the principle condition, and the certainty does not go lower. Examine the certainty again when an independent study with a different method is available.

@@ -1,114 +1,124 @@
-# 설계 v2
+# Design
 
-이 저장소는 에이전트가 읽는 저장소 문서를 시간이 지나도 흔들리지 않게 쓰는 방법을 정리한다. 새 지표나 새 도구를 만들지 않는다. 이미 발표된 연구, 공개 데이터, 운영 중인 도구를 어떤 순서로 적용하는지 안내하는 것이 이 저장소의 일이다. 대괄호 번호는 [REFERENCES.md](REFERENCES.md)의 항목이다.
+This document gives the design of the guidebook. The guidebook tells how to write repository documents that stay correct when the code changes. It uses published research and available tools, and it makes no new metric or tool ([decision 0001](decisions/0001-adopt-existing-methods.md)). Numbers in brackets refer to [REFERENCES.md](REFERENCES.md). [GLOSSARY.md](GLOSSARY.md) gives the terms.
 
-v1에서 바뀐 이유는 [decisions/0001-adopt-existing-methods.md](decisions/0001-adopt-existing-methods.md)에 있다.
+## 1. Scope
 
-## 1. 범위
+- **Documents:** README, ARCHITECTURE, context files and CONTRIBUTING.
+- **In scope:** growth by addition and outdated references in these documents, and the rules and checks that prevent them.
+- **Out of scope:** the effect of context files on the task success of agents. Studies do not agree [3] [4] [5]. This repository only cites them.
 
-- **대상 문서**: 소개(README), 구조 설명(ARCHITECTURE), 에이전트 지시(AGENTS.md, CLAUDE.md 등), 기여 안내(CONTRIBUTING)
-- **다루는 것**: 문서가 커지고 흔들리는 현상, 문서가 코드와 어긋나 낡는 현상, 이를 막는 작성 방식과 검사
-- **다루지 않는 것**: 에이전트 지시 파일이 작업 성공률을 높이는가. 이 질문은 연구 결과가 서로 엇갈리며 [3] [4] [5], 이 저장소는 그 결과를 인용만 한다.
+## 2. Layers and records
 
-## 2. 층 구조
+A higher layer changes less frequently than a lower layer. A lower layer obeys the rules of the higher layers.
 
-위 층일수록 드물게 바뀌고, 아래 층은 위 층의 규칙을 따른다.
-
-| 층 | 위치 | 들어오는 조건 |
+| Layer | Location | Entry condition |
 |---|---|---|
-| 표본 무결성 불변식 | 이 문서 3절 | 바꾸지 않는다 |
-| 원칙 | `principles/` | 근거 등급이 "중간" 이상이고, 서로 다른 연구 둘 이상에서 같은 방향으로 관찰된 현상 |
-| 관행 | `practices/` | 근거 등급과 반증 조건을 붙인 처방. 재검증 기한이 있다 |
-| 결정 기록 | `decisions/` | 추가만 한다. 기존 기록은 새 기록으로 대체한다 |
-| 스냅샷 | `snapshots/` | 추가만 한다. 한 번 쓰면 바꾸지 않는다 |
+| Sample integrity invariant | §3 | It does not change |
+| Principle | `principles/` | The certainty is moderate or higher. At least two studies with samples that do not overlap show the same direction |
+| Practice | `practices/` | The clause has a certainty, a falsification criterion and a review date |
+| Guide | `guides/` | The guide cites only clause ids and reference numbers. It marks each step that has no clause or reference. Each step ends with a completion criterion that a reader can verify [23]. A case study is not evidence |
 
-## 3. 표본 무결성 불변식
+If two studies have the same authors or methods, their errors can overlap. Write this in a refutation, and use it when you set the certainty.
 
-> 표본의 품질과 방향성 응집도가 기준에 미달하면, 그 표본에서 나온 결론은 채택하지 않는다.
+Two records are not layers. You can only add to them. To change a record, write a new record that replaces it.
 
-이 불변식은 우리가 직접 측정한 데이터와 인용하는 연구에 똑같이 적용한다. 판정 방법은 새로 만들지 않고 다음을 쓴다.
+| Record | Location | Content |
+|---|---|---|
+| Decision record | `decisions/` | The reason for a change to the structure or to the status of a clause |
+| Snapshot | `snapshots/` | Measurements |
 
-- **표본 품질**: GitHub 데이터의 알려진 함정 [10]과 소프트웨어 공학 표집 지침 [11]으로 점검한다.
-- **방향성 응집도와 근거의 약점**: GRADE의 다섯 영역으로 평가한다 [12]. 연구 설계의 한계, 비일관성, 부정확성, 비직접성, 출판 편향이다. 예를 들어 합성 실험만 있으면 설계 한계, 결과끼리 엇갈리면 비일관성, 표본이 작으면 부정확성, 다른 언어나 다른 에이전트만 다뤘으면 비직접성으로 등급을 낮춘다.
+## 3. Sample integrity invariant
 
-## 4. 근거 등급
+> If a sample does not have sufficient quality or consistency, do not adopt conclusions from it.
 
-모든 원칙과 관행 조항에 GRADE 방식의 등급을 붙인다 [12].
+This invariant applies to our own measurements and to cited studies. Use these available methods to examine a sample:
 
-| 등급 | 뜻 |
+- **Sample quality:** the known problems of GitHub data [10] and the guidelines for samples in software engineering research [11].
+- **Consistency and weak points:** the five GRADE domains [12]. These are risk of bias, inconsistency, imprecision, indirectness and publication bias. Lower the certainty for risk of bias if all evidence comes from synthetic experiments. Lower it for inconsistency if the results do not agree. Lower it for imprecision if the samples are small. Lower it for indirectness if the studies use other languages or agents.
+
+## 4. Certainty
+
+Each clause has a GRADE certainty [12]. Each clause also lists the domains that lowered its certainty.
+
+| Certainty | Meaning |
 |---|---|
-| 높음 | 후속 연구가 나와도 결론이 바뀔 가능성이 낮다 |
-| 중간 | 결론이 바뀔 수 있다 |
-| 낮음 | 결론이 바뀔 가능성이 높다 |
-| 매우 낮음 | 결론을 거의 확신할 수 없다 |
+| high | More research will probably not change the conclusion |
+| moderate | More research can change the conclusion |
+| low | More research will probably change the conclusion |
+| very low | The conclusion is very uncertain |
 
-등급을 낮춘 영역은 조항에 함께 적는다.
+## 5. Counter-evidence
 
-## 5. 반대 근거를 다루는 방식
+Put counter-evidence into a clause as refutations, not as a list. A two-sided message without a refutation persuades less than a one-sided message. A two-sided message with a refutation persuades more [14]. A text that states a misconception and refutes it helps people learn [13].
 
-반대 근거는 넣되, 나열하지 않고 반박형으로 넣는다. 반박 없이 반대 의견만 적은 글은 설득력이 오히려 떨어지고 [14], 오해를 먼저 제시하고 반박하는 글은 학습 효과가 있다 [13].
+1. Put each item of counter-evidence together with the judgment of this repository. Tell what the clause took from it and what limit stays.
+2. Give each clause a falsification criterion. This follows the procedure of adversarial collaboration [15].
+3. Before you propose a clause, read the limits of each cited study. Also look for studies that disagree with it.
+4. Prefer recent studies, because agents and tools change quickly. Cite an older study only if no recent study examines the question. Then lower the certainty for indirectness if the old tools or agents are different.
+5. Do not put counter-evidence in context files. Language models frequently miss negation [16]. Thus a context file contains positive instructions, each with a reason of one line. Refutations go in clauses and decision records. This rule applies reader studies [13] [14] to agents, so it is indirect.
 
-1. **반박형으로 쓴다.** 반대 근거마다 "반대 근거 → 이 저장소의 판단(반영한 점, 남는 한계)"을 한 쌍으로 적는다.
-2. **반증 조건을 적는다.** 조항마다 "이 조항이 틀렸다고 판단할 조건"을 한 줄 적는다. 적대적 협업의 절차에서 가져온 방식이다 [15].
-3. **조항을 채택하기 전에 반대 근거를 찾는다.** 인용하려는 연구의 한계 절과, 그 결과를 반박하는 연구를 먼저 확인한다.
-4. **에이전트 지시 파일에는 반대 근거를 넣지 않는다.** LLM은 부정문을 자주 놓친다 [16]. 에이전트 지시 파일에는 긍정형 지시와 이유 한 줄만 두고, 반대 근거는 이 저장소의 설명 층과 결정 기록에 둔다. 이 판단은 사람 독자 연구 [13] [14]를 에이전트 문서에 옮겨 적용한 것이므로 비직접성을 안고 있다.
-
-## 6. 조항 형식
-
-원칙과 관행 조항은 파일 앞부분에 상태를 적는다.
+## 6. Clause format
 
 ```yaml
-id: R-001                  # 원칙은 P-, 관행은 R-
-layer: practice              # principle | practice
-status: proposed             # proposed | adopted | deprecated | superseded
-certainty: low               # high | moderate | low | very-low
+id: R-001                  # P- for principles, R- for practices
+layer: practice            # principle | practice
+status: proposed           # proposed | adopted | superseded
+certainty: low             # high | moderate | low | very-low
 downgraded-for: [indirectness, imprecision]   # risk-of-bias | inconsistency | imprecision | indirectness | publication-bias
-falsified-if: "같은 조건의 재현 실험에서 효과가 관찰되지 않는다"
-review-by: 2027-03-24        # 관행만
+falsified-if: "A replication with the same conditions does not show the same effect"
+review-by: 2027-03-24      # practices only
 references: [1]
 superseded-by: null
 ```
 
-본문에는 조항, 이유(원칙은 근거), 반대 근거와 판단(반박형), 적용 방법을 차례로 적는다. 조항은 에이전트가 `proposed`로 만들 수 있지만, `adopted`로 바꾸는 일은 사람이 결정 기록을 남겨서 한다.
+The body contains the clause, the reason (the evidence, for a principle) and the refutations. A practice also contains its application. An agent can make a clause with the status `proposed`. Only a person changes a status, and the person writes a decision record for it. To withdraw a clause, delete its file and write the reason in a decision record. Keep the file only if a different clause replaces it. Then set `status: superseded` and `superseded-by`.
 
-## 7. 결정 기록 형식
+## 7. Decision record format
 
-Nygard 양식을 쓰고 "검토한 대안" 절 하나만 더한다 [17]. 간결한 Nygard 양식이 이해도에서 더 좋은 평가를 받았고 [18], 실제 결정 기록에서는 대안이 가장 자주 빠진다 [19].
+Use the format of Nygard, and add one section, Alternatives considered [17]. The short Nygard format had the best results for comprehension [18]. Real decision records omit alternatives more frequently than other sections [19].
 
 ```
-# 번호. 제목
-## 상태
-## 맥락
-## 결정
-## 검토한 대안
-## 결과
+# N. Title
+## Status
+## Context
+## Decision
+## Alternatives considered
+## Consequences
 ```
 
-## 8. 적용 도구
+## 8. Tools and data
 
-새 도구를 만들지 않는다. 필요한 검사는 다음 기존 방식으로 한다.
+Use available tools for document checks. [guides/new-project.md](guides/new-project.md) §2 gives their order and their limits. For measurements of context files, use the Agent Context File Analysis dataset [6].
 
-| 목적 | 쓰는 것 | 주의점 |
-|---|---|---|
-| 문서의 낡은 코드 참조 검사 | DOCER [8], 에이전트 지시 파일 적용 방법 [2] | 오탐이 많다. 수작업 확인에서 36%가 오탐이거나 애매했다 [2]. 자동 실패가 아니라 경고로 쓰고 사람이 확인한다 |
-| 생성된 목록과 문서의 일치 검사 | cog `--check` [20] | 코드에서 나오는 목록에만 쓴다 |
-| 코드가 바뀌면 문서를 다시 보게 강제 | rust-analyzer의 해시 대조 방식 [21] | 대상 파일을 좁게 잡는다 |
-| 에이전트 지시 파일 표본 | Agent Context File Analysis 공개 데이터 [6] | 별 5개 이상, AIDev 기반 저장소로 한정된 모집단이다 |
+## 9. Clauses
 
-## 9. 조항 목록
+Principles are in [principles/](principles/), and practices are in [practices/](practices/). Each clause has its own file. This document does not list them.
 
-원칙은 [principles/](principles/), 관행은 [practices/](practices/)에 한 파일에 한 조항씩 있다. 이 문서에는 목록을 옮겨 적지 않는다. 같은 내용을 두 곳에 두면 한쪽이 낡기 때문이다.
+Withdrawn clauses:
 
-철회한 처방: "AGENTS.md는 효율을 위한 파일이다". 근거 [4]가 에이전트 하나만 다뤘고 정확성을 측정하지 않았으며, 다른 연구 [3]과 비교할 수 없는 조건이었다.
+- "AGENTS.md is a file for efficiency" (a prescription of design v1, 2026-09-24). Its source [4] examined one agent and did not measure correctness. Also, its conditions were different from [3]. This clause is older than the decision records, so its reason stays here.
+- R-003 "Change rules when the agent makes an error" (2026-09-25): [decision 0003](decisions/0003-withdraw-r003-p003.md).
+- P-003 "No evidence shows that repository overviews increase the task success of agents" (2026-09-25): [decision 0003](decisions/0003-withdraw-r003-p003.md).
 
-## 10. 파일럿 스냅샷
+## 10. Pilot snapshot
 
-`snapshots/2026-09-24-pilot/`은 v1에서 직접 정의한 지표로 측정한 기록이다. v2에서는 그 지표를 쓰지 않으므로 근거로 인용하지 않는다. 표본을 역할이나 성격으로 나누면 결론의 방향이 뒤집힌다는 사례로만 남긴다. 이 사례가 3절 불변식의 동기다.
+`snapshots/2026-09-24-pilot/` contains measurements of metrics from design v1. This design does not use these metrics. Thus the guidebook does not cite the snapshot as evidence. The snapshot stays as an example: when we divided the sample, the conclusion changed direction. This example is the reason for §3.
 
-## 11. 미결정
+## 11. Languages
 
-| 항목 | 추천 |
+Each language has one style guide. A file follows the style guide of its language, and it names only that style guide.
+
+| Language | Files | Style guide | Mechanical check |
+|---|---|---|---|
+| English | All originals | ASD-STE100 Simplified Technical English [24] | No Hangul. Vale [29]: 25 words or fewer in a description sentence, 20 or fewer in a procedure sentence. Vale does not check table cells |
+| Korean | Translations with the name `<name>.ko.md` | fluent-korean [25] | No em dash |
+
+A translation is a separate file next to its original. If the two are different, the original is correct. The first line of a translation records the SHA-256 hash of its original. The check fails when the original changes and the translation does not. This is the method of [21]. To add a language, add a row to this table and write a decision record.
+
+## 12. Open questions
+
+| Question | Recommendation |
 |---|---|
-| 모집단 | 에이전트 지시 파일은 [6]의 모집단을 그대로 쓴다. 에이전트 제품 저장소는 별도 모집단으로 둔다 |
-| 측정 주기 | 반기. 새 논문과 공개 데이터가 나오면 등급을 다시 매긴다 |
-| 언어 | 영어 본문과 한국어 요약 |
+| Population | For context files, use the population of [6]. Keep repositories of agent products as a different population |
+| Review cycle | Every six months. Set the certainty again when new papers or datasets are available |

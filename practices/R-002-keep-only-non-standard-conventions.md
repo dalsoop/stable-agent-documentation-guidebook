@@ -3,32 +3,38 @@ id: R-002
 layer: practice
 status: proposed
 certainty: low
-downgraded-for: [indirectness, imprecision]
-falsified-if: "Python 밖의 저장소에서 개요를 넣은 에이전트 지시 파일이 작업 성공률을 유의하게 높인다"
+downgraded-for: [indirectness]
+falsified-if: "Repositories that also keep overviews and structure in the context file have no more outdated references and no faster growth of that file than other repositories"
 review-by: 2027-03-24
-references: [3, 5]
+references: [1, 2, 3, 7]
 superseded-by: null
 ---
 
-# 에이전트 지시에는 그 저장소만의 관례만 둔다
+# Keep only the conventions of the repository in context files
 
-## 조항
+## Clause
 
-에이전트 지시 파일에는 README나 코드에서 알 수 없는, 그 저장소만의 관례와 명령만 둔다. 저장소 개요와 구조 설명은 README와 ARCHITECTURE에 두고 경로만 가리킨다.
+A context file contains only the conventions and commands that the README and the code do not show. Overviews and structure are in README and ARCHITECTURE, and the context file refers to them.
 
-## 이유
+## Reason
 
-개요는 에이전트가 파일을 찾는 데 도움이 되지 않았고, 에이전트는 파일에 적힌 구체적인 지시를 따랐다 [3]. 개요를 빼면 파일이 짧아져 원칙 P-001이 말하는 증가의 대상도 줄어든다.
+Overviews and structure contain many names of code elements, for example files, modules and commands. If the context file also contains them, the text exists in two places. When the code changes, people often correct only one copy, and outdated references stay. Outdated references are frequent (P-002), and text in a context file rarely goes away (P-001). One copy removes the second place where text becomes stale and grows.
 
-## 반대 근거와 판단
+No study gives a reason to put overviews in context files. Overviews did not change how fast agents found the related files [3]. That study measures task success, which is out of scope (DESIGN.md §1). Thus this clause cites only its null result.
 
-- **반대 근거**: [3]은 Python 저장소만 다뤘고, 문서가 적은 저장소에서는 결과가 다를 수 있다고 저자가 밝혔다.
-  **판단**: 문서가 적은 저장소에서는 개요를 README에 먼저 쓰고 에이전트 지시에서 가리키는 방식으로 적용한다. 개요를 없애는 것이 아니라 위치를 옮기는 처방이다.
+## Refutations
 
-## 적용
+- **Counter-evidence:** this practice comes from two principles by inference. No study compares repositories that moved overviews out of context files with repositories that did not.
+  **Judgment:** the certainty is low because of indirectness. The falsification criterion states that comparison.
+- **Counter-evidence:** in [3], context files that developers wrote had a positive effect.
+  **Judgment:** the effect was not significant. Also, this practice moves overviews and does not delete them. The context file refers to their location.
+- **Counter-evidence:** a repository with few documents can have no other place for an overview.
+  **Judgment:** write the overview in the README first. Then refer to it from the context file.
+
+## Application
 
 ```markdown
-구조와 경계는 ARCHITECTURE.md를 먼저 읽는다.
+Read ARCHITECTURE.md first for structure and boundaries.
 
-- 새 앱은 `./repo new <app>`으로만 만든다. (이유: 스캐폴더가 필수 파일을 함께 만든다)
+- Make apps only with `./repo new <app>`. (Reason: the scaffolder makes the necessary files.)
 ```

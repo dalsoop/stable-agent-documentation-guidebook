@@ -1,15 +1,44 @@
 # stable-agent-documentation-guidebook
 
-에이전트가 읽는 저장소 문서(README, 구조 설명, 에이전트 지시, 기여 안내)를 시간이 지나도 흔들리지 않게 쓰는 방법을 다루는 가이드북입니다. 새 지표나 도구를 만들지 않고, 이미 발표된 연구와 공개 데이터와 운영 중인 도구를 어떤 순서로 적용하는지 안내합니다. 모든 조항에는 근거 등급과 반증 조건이 붙습니다.
+This guidebook tells you how to write repository documents (README, ARCHITECTURE, context files, CONTRIBUTING) that stay correct when the code changes. Agents read these documents before they work, so an outdated document gives them wrong facts. The guidebook applies published research and available tools, and it makes no new tools. Each clause has a certainty and a falsification criterion. The originals are in English and follow Simplified Technical English (STE). Translations follow the style guide of their language ([DESIGN.md](DESIGN.md) §11).
 
-가장 위의 규칙은 **표본 무결성 불변식**입니다. 표본의 품질과 방향성 응집도가 기준에 미달하면, 그 표본에서 나온 결론은 채택하지 않습니다. 인용하는 연구에도 같은 기준을 적용합니다. 그 아래에 원칙, 시대별 관행이 차례로 놓입니다.
+## Structure
 
-- 설계와 층 구조: [DESIGN.md](DESIGN.md)
-- 참고 문헌과 각 연구의 한계: [REFERENCES.md](REFERENCES.md)
-- 결정 기록: [decisions/](decisions/)
-- 측정 기록: [snapshots/](snapshots/)
+```mermaid
+flowchart TB
+  REF["References<br/>published research and tools"] --> P
+  INV["Sample integrity invariant"] --> P["Principles<br/>observed phenomena"]
+  P --> R["Practices<br/>prescriptions with a certainty"]
+  R --> G["Guides<br/>steps, templates, case studies"]
+  DEC[("Decision records")] -.->|set the status of| P
+  DEC -.->|set the status of| R
+  INV -.->|examines| SNAP[("Snapshots<br/>measurements")]
+```
 
-아직 설계 단계입니다. 현재 스냅샷은 파일럿이며, 관행이나 원칙의 근거로 쓰지 않습니다.
+## How it works
+
+```mermaid
+flowchart LR
+  S["A new study"] --> C["An agent proposes a clause<br/>with a certainty and a falsification criterion"]
+  C --> H{"A person reviews it"}
+  H -->|accept| A["Decision record: adopted"]
+  H -->|reject| W["Decision record: withdrawn"]
+  A --> G["A guide cites the clause"]
+  G --> U["You apply the guide<br/>to your repository"]
+  U --> T["Every six months:<br/>grade again with new studies"]
+  T --> C
+```
+
+## Documents
+
+- Start a project: [guides/new-project.md](guides/new-project.md)
+- Design, layers and the sample integrity invariant: [DESIGN.md](DESIGN.md)
+- Terms: [GLOSSARY.md](GLOSSARY.md)
+- Clauses: [principles/](principles/), [practices/](practices/)
+- References and their limits: [REFERENCES.md](REFERENCES.md)
+- Decision records: [decisions/](decisions/)
+- Snapshots: [snapshots/](snapshots/)
+- Korean translation: [README.ko.md](README.ko.md)
 
 ## License
 
