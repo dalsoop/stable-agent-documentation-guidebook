@@ -37,7 +37,7 @@
 - 한계: [2]의 오탐 문제를 그대로 가진다
 
 **[9]** G. Cai, R. Li, P. Liang, Z. Li, M. Shahin, "Rule Taxonomy and Evolution in AI IDEs: A Mining and Survey Study," arXiv:2606.12231, 2026. https://arxiv.org/abs/2606.12231
-- 가져다 쓰는 것: 규칙 변경은 확장과 보강이 대부분이었다. 에이전트의 실수를 고치려고 규칙을 수정한 뒤 준수율이 올랐다
+- 가져다 쓰는 것: 규칙 변경은 확장과 보강이 대부분이었다. 규칙 수정 뒤 준수율이 올랐다는 관찰은 철회한 R-003에만 쓰였고 지금은 인용하지 않는다
 - 한계: 인과가 아닌 상관. 준수 여부를 LLM이 채점했다. 프로젝트 대부분이 소규모, 1인 개발, TypeScript 웹이다
 
 ## 표본과 근거 평가
