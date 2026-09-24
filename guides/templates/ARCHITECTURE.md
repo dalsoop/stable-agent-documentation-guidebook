@@ -1,7 +1,7 @@
-<!-- Skeleton: fill in the angle brackets, then delete this comment. Write only what rarely changes. Leave out lists, versions, options and numbers. -->
+<!-- Skeleton: replace the text in angle brackets, then delete this comment. Write only information that changes rarely. Do not write lists, versions, options or numbers. -->
 # Architecture
 
-<What this repository is for, in one paragraph: who uses it and what it contains.>
+<The purpose of this repository in one paragraph: who uses it and what it contains.>
 
 ## Folder layout
 
@@ -11,37 +11,37 @@
 └── <folder>/   <role in one line>
 ```
 
-<Conventions inside the folders, for example "one folder is one app". Do not list what changes often; name the command that lists it.>
+<The conventions in the folders, for example "one folder contains one app". Do not list items that change frequently. Give the command that lists them.>
 
 ## Dependency direction
 
-<What uses what, that the reverse direction is not allowed, and which files hold the actual dependencies.>
+<Which parts use which parts. The reverse direction is not permitted. The files that contain the real dependencies.>
 
 ## Main flows
 
-<The order of work when adding a feature, and the command used at each step.>
+<The sequence of work when you add a feature. The command for each step.>
 
 ## Boundaries
 
-<Rules that keep the structure: what must not use what, and which tool must not hold which feature.>
+<The rules that keep the structure: which part must not use which part, and which tool must not contain which feature.>
 
-## When changing
+## Rules for change
 
-Rules for agents and people who edit this document or the README. Source: `guides/new-project.md` §2 in https://github.com/dalsoop/stable-agent-documentation-guidebook. Copy the list again when the guidebook changes.
+These rules are for agents and people who change this document or the README. Source: `guides/new-project.md` §2 in https://github.com/dalsoop/stable-agent-documentation-guidebook. Copy the rules again when the guidebook changes.
 
-### Writing rules
+### Rules
 
-1. **Write only what rarely changes.** Only the five sections above; behaviour belongs in the tool's help.
-2. **Do not append sentences when a feature changes.** Behaviour goes to the help, reasons to a decision record.
-3. **Name code elements so they can be searched.** Link only what a check verifies exists.
-4. **Keep lists derived from code out of this document and name the command that queries them.** Where another document needs a list, generate it and fail the check when the two differ.
-5. **Re-read from the start every <cycle>, and delete stale sentences.** Last re-read: <date>.
+1. **Write only information that changes rarely.** Write only the five sections above. Put behavior in the help of the tool.
+2. **Do not add sentences when a feature changes.** Put behavior in the help and reasons in a decision record.
+3. **Give code elements names that a reader can search for.** Add a link only if a check verifies the target.
+4. **Do not put lists from code in this document.** Give the command that shows them. If a different document needs a list, generate it. Make the check fail when the two are different.
+5. **Read this document again every <interval>, and delete stale sentences.** Last review: <date>.
 
 ### Check status
 
-- `<check command>` verifies: <required headings, links, generated blocks, ...>
-- Not checked, verify by hand: <rules>
+- `<check command>` verifies: <required headings, links, generated blocks>
+- A person must verify: <rules with no check>
 
 ## References
 
-<The sources these writing rules rest on.>
+<The sources of these rules.>

@@ -4,31 +4,31 @@ layer: practice
 status: proposed
 certainty: low
 downgraded-for: [risk-of-bias, indirectness]
-falsified-if: "In real repositories, instruction files with reasons and without reasons show no difference in growth rate or deletion ratio"
+falsified-if: "In real repositories, instruction files with reasons and instruction files without reasons have the same growth rate and the same ratio of deletions"
 review-by: 2027-03-24
 references: [1]
 superseded-by: null
 ---
 
-# State a reason for every instruction
+# Give a reason for each instruction
 
 ## Clause
 
-Give every instruction in an instruction file a one-line reason.
+Give each instruction in an instruction file a reason of one line.
 
 ## Reason
 
-An instruction without a reason stays, because no one can tell whether it is safe to delete [1]. With a reason, the instruction can go once the reason does. This is a practice against the sediment described in P-001.
+People keep an instruction without a reason, because they cannot know if it is safe to delete it [1]. If the instruction has a reason, people can delete it when the reason goes away. This practice decreases the sediment that P-001 describes.
 
 ## Rebuttals
 
-- **Counter-evidence:** the large effect sizes come from synthetic experiments with two or three instructions; the effect on real prompts was smaller and graded by an LLM [1].
-  **Judgement:** no effect size is cited. The cost is one line and no side effect is reported, so the practice is worth trying. Certainty low.
+- **Counter-evidence:** the large effect sizes come from synthetic experiments with two or three instructions. The effect on real prompts was smaller, and an LLM graded it [1].
+  **Judgement:** this clause cites no effect size. The cost is one line, and no study reports a side effect. Thus the practice is worth a trial, and its certainty is low.
 - **Counter-evidence:** reasons make the file longer.
-  **Judgement:** no cited study links file length to compliance. The added length is one line per instruction.
+  **Judgement:** no cited study connects file length and compliance. Each reason adds one line.
 
 ## Application
 
 ```markdown
-- Run `./repo lint` after every change. (Reason: rules the linter enforces are not restated here.)
+- Run `./repo lint` after each change. (Reason: this file does not repeat the rules that the linter checks.)
 ```

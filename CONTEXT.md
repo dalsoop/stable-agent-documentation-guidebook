@@ -1,21 +1,25 @@
 # Context
 
-The vocabulary of this repository. Every document uses these terms and no synonyms. Bracketed numbers point to [REFERENCES.md](REFERENCES.md).
+This file gives the terms of this repository. All documents use these terms and no synonyms. Numbers in brackets refer to [REFERENCES.md](REFERENCES.md).
 
 | Term | Meaning |
 |---|---|
 | repository document | A README, ARCHITECTURE, instruction file or CONTRIBUTING file |
-| instruction file | A file an agent loads as standing instructions, such as AGENTS.md or CLAUDE.md |
-| sediment | Lines that stay because adding feels safe and removing feels risky [23] |
-| stale reference | A reference to a code element that no longer exists |
+| instruction file | A file that an agent reads as standing instructions, for example AGENTS.md or CLAUDE.md |
+| sediment | Lines that stay in a file because people add text easily but do not remove it [23] |
+| stale reference | A reference to a code element that does not exist now |
 | duplication | The same meaning in more than one place [23] |
-| clause | A principle or a practice, one file each |
-| principle | An observed phenomenon; entry condition in [DESIGN.md](DESIGN.md) §2 |
-| practice | A prescription; entry condition in DESIGN.md §2 |
+| clause | A principle or a practice. Each clause has its own file |
+| principle | An observed phenomenon. [DESIGN.md](DESIGN.md) §2 gives the entry condition |
+| practice | A prescription. DESIGN.md §2 gives the entry condition |
 | certainty | The GRADE level of a clause (DESIGN.md §4) |
-| falsifier | The condition under which a clause is judged wrong; `falsified-if` in the front matter |
-| rebuttal | One piece of counter-evidence paired with this repository's judgement (DESIGN.md §5) |
-| guide | Steps that apply clauses (DESIGN.md §2) |
-| case | A record of one repository following a guide (DESIGN.md §2) |
-| decision record | Why the structure or a clause status changed (DESIGN.md §2) |
-| snapshot | A measurement record (DESIGN.md §2) |
+| falsifier | The condition that shows a clause is wrong. The front matter field is `falsified-if` |
+| rebuttal | One item of counter-evidence together with the judgement of this repository (DESIGN.md §5) |
+| guide | A procedure that applies clauses (DESIGN.md §2) |
+| case | A record of one repository that followed a guide (DESIGN.md §2) |
+| decision record | The reason for a change to the structure or to the status of a clause (DESIGN.md §2) |
+| snapshot | A record of measurements (DESIGN.md §2) |
+| writing standard | The set of rules for text in one language (DESIGN.md §11) |
+| source file | A file in English. Translations follow it (DESIGN.md §11) |
+| translation | A file in a different language that follows a source file (DESIGN.md §11) |
+| STE | ASD-STE100 Simplified Technical English [24], the writing standard for English |

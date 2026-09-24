@@ -1,12 +1,12 @@
-<!-- Skeleton: fill in the angle brackets, then delete this comment. Structure and working rules belong in other documents. -->
+<!-- Skeleton: replace the text in angle brackets, then delete this comment. Put structure and rules for work in other documents. -->
 # <repository>
 
-<What it is, in one paragraph.> Structure is in [ARCHITECTURE.md](ARCHITECTURE.md), and agent working rules are in [AGENTS.md](AGENTS.md).
+<What it is, in one paragraph.> [ARCHITECTURE.md](ARCHITECTURE.md) gives the structure. [AGENTS.md](AGENTS.md) gives the rules for agents.
 
 ```bash
 <first command to run>
 <check command>
-<tool> help          # every command and its details
+<tool> help          # all commands and their details
 ```
 
-<One paragraph on where a first run commonly fails, if anywhere.>
+<If a first run often fails, tell where in one paragraph.>

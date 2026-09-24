@@ -4,37 +4,37 @@ layer: practice
 status: proposed
 certainty: low
 downgraded-for: [indirectness]
-falsified-if: "Repositories that also keep overviews and structure in the instruction file show no more stale references and no faster growth in it than repositories that do not"
+falsified-if: "Repositories that also keep overviews and structure in the instruction file have no more stale references and no faster growth of that file than other repositories"
 review-by: 2027-03-24
 references: [1, 2, 3, 7]
 superseded-by: null
 ---
 
-# Keep only the repository's own conventions in instruction files
+# Keep only the conventions of the repository in instruction files
 
 ## Clause
 
-An instruction file holds only the conventions and commands that the README and the code do not reveal. Overviews and structure live in README and ARCHITECTURE, and the instruction file points to them.
+An instruction file contains only the conventions and commands that the README and the code do not show. Overviews and structure are in README and ARCHITECTURE, and the instruction file refers to them.
 
 ## Reason
 
-Overviews and structure name many code elements: files, modules, commands. Kept in the instruction file as well, they exist twice, and when the code changes only one copy gets fixed, leaving stale references. Stale references are common (P-002), and what enters an instruction file rarely leaves (P-001). Keeping one copy removes the second place to go stale and to grow.
+Overviews and structure contain many names of code elements, for example files, modules and commands. If the instruction file also contains them, the text exists in two places. When the code changes, people often correct only one copy, and stale references stay. Stale references are frequent (P-002), and text in an instruction file rarely goes away (P-001). One copy removes the second place where text becomes stale and grows.
 
-No study reports a reason to put overviews in instruction files: overviews did not change how fast agents found relevant files [3]. That study measures task success, which is out of scope (DESIGN.md §1), so only its null finding is cited here.
+No study gives a reason to put overviews in instruction files. Overviews did not change how fast agents found the related files [3]. That study measures task success, which is out of scope (DESIGN.md §1). Thus this clause cites only its null result.
 
 ## Rebuttals
 
-- **Counter-evidence:** the practice is inferred from two principles; no study compares repositories that moved overviews out with repositories that did not.
-  **Judgement:** downgraded for indirectness to low. The falsifier states that comparison.
-- **Counter-evidence:** in [3], developer-written instruction files had a positive effect.
-  **Judgement:** it was not significant. The practice moves overviews rather than deleting them: the instruction file points to where they are.
-- **Counter-evidence:** a repository with few documents may have nowhere else to keep an overview.
-  **Judgement:** write the overview in the README first and point to it.
+- **Counter-evidence:** this practice comes from two principles by inference. No study compares repositories that moved overviews out of instruction files with repositories that did not.
+  **Judgement:** the certainty is low because of indirectness. The falsifier states that comparison.
+- **Counter-evidence:** in [3], instruction files that developers wrote had a positive effect.
+  **Judgement:** the effect was not significant. Also, this practice moves overviews and does not delete them. The instruction file refers to their location.
+- **Counter-evidence:** a repository with few documents can have no other place for an overview.
+  **Judgement:** write the overview in the README first. Then refer to it from the instruction file.
 
 ## Application
 
 ```markdown
 Read ARCHITECTURE.md first for structure and boundaries.
 
-- Create apps only with `./repo new <app>`. (Reason: the scaffolder creates the required files.)
+- Make apps only with `./repo new <app>`. (Reason: the scaffolder makes the necessary files.)
 ```

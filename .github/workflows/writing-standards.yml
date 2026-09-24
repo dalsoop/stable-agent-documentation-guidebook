@@ -1,0 +1,65 @@
+name: writing-standards
+
+# The mechanical checks of DESIGN.md §11 (decisions/0005).
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "English: no Hangul outside translations"
+        run: |
+          git ls-files -z -- . ':!:*.ko.md' | xargs -0 perl -CSD -ne '
+            if (/[\x{1100}-\x{11FF}\x{3130}-\x{318F}\x{AC00}-\x{D7A3}]/) { print "$ARGV:$.: $_"; $bad = 1 }
+            close ARGV if eof;
+            END { $? = $bad ? 1 : 0 }'
+
+      - name: "English: no prose sentence longer than 25 words (STE)"
+        run: |
+          git ls-files -z -- '*.md' ':!:*.ko.md' | xargs -0 perl -CSD -ne '
+            if ($ARGV ne $file) { $file = $ARGV; $n = 0; $front = 0; $code = 0 }
+            $n++;
+            if ($n == 1 && /^---\s*$/) { $front = 1; next }
+            if ($front) { $front = 0 if /^---\s*$/; next }
+            if (/^\s*```/) { $code = !$code; next }
+            next if $code || /^\s*\|/ || /^\s*\*\*\[\d+\]\*\*/ || /^\s*<!--/;
+            s/`[^`]*`/X/g;
+            s/\[([^\]]*)\]\([^)]*\)/$1/g;
+            s{https?://\S+}{URL}g;
+            s/\*+//g;
+            for my $s (split /(?<=[.!?])\s+/) {
+              my @w = grep { /\w/ } split /\s+/, $s;
+              if (@w > 25) { print "$ARGV:$n: ", scalar(@w), " words: $s\n"; $bad = 1 }
+            }
+            END { $? = $bad ? 1 : 0 }'
+
+      - name: "Korean: no em dash (fluent-korean)"
+        run: |
+          git ls-files -z -- '*.ko.md' | xargs -0 -r perl -CSD -ne '
+            if (/\x{2014}/) { print "$ARGV:$.: $_"; $bad = 1 }
+            close ARGV if eof;
+            END { $? = $bad ? 1 : 0 }'
+
+      - name: "Translations: source hash is current"
+        run: |
+          git ls-files -z -- '*.ko.md' | xargs -0 -r perl -MDigest::SHA=sha256_hex -e '
+            for my $t (@ARGV) {
+              open my $fh, "<", $t or die "$t: $!";
+              my $first = <$fh>;
+              close $fh;
+              my ($src, $want) = $first =~ /<!--\s*source:\s*(\S+)\s+sha256:\s*([0-9a-f]{64})\s*-->/;
+              unless ($src) { print "$t: the first line must be <!-- source: <file> sha256: <hash> -->\n"; $bad = 1; next }
+              (my $dir = $t) =~ s{[^/]*$}{};
+              my $path = $dir . $src;
+              open my $sf, "<:raw", $path or do { print "$t: source file $path not found\n"; $bad = 1; next };
+              local $/;
+              my $got = sha256_hex(<$sf>);
+              close $sf;
+              if ($got ne $want) { print "$t: $path changed (sha256 $got). Update the translation and its hash.\n"; $bad = 1 }
+            }
+            exit($bad ? 1 : 0)'
