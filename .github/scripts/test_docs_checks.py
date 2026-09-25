@@ -32,13 +32,17 @@ GUIDE = """# Guide
 """
 
 
-def note(status="raw", into="[]", archive="~/archive/", body="I did it.\n"):
+def note(status="raw", into="[]", archive="~/archive/", body="I did it.\n",
+         written="2026-09-25", cutoff="2026-06"):
     return f"""---
 author: agent-x
 date: 2026-09-25
 repository: example
 status: {status}
 normalized-into: {into}
+written-at: {written}
+model: model-x
+knowledge-cutoff: {cutoff}
 session:
   tool: agent CLI
   id: session-1
@@ -100,7 +104,7 @@ class Fixture(unittest.TestCase):
 
     # Baseline
     def test_base_passes(self):
-        for c in ["structure", "abstraction", "notes"]:
+        for c in ["structure", "abstraction", "notes", "cutoff"]:
             self.assertPasses(c)
 
     # Abstraction
@@ -198,6 +202,43 @@ class Fixture(unittest.TestCase):
     def test_note_bad_hash(self):
         self.change("notes/n2.md", note().replace(HASH, "abc"))
         self.assertFails("notes", "session.sha256")
+
+    def test_note_cutoff_after_writing(self):
+        self.change("notes/n2.md", note(cutoff="2027-01"))
+        self.assertFails("notes", "knowledge-cutoff is after written-at")
+
+    def test_note_bad_written_at(self):
+        self.change("notes/n2.md", note(written="yesterday"))
+        self.assertFails("notes", "written-at is an ISO date")
+
+    # Cutoff
+    def test_latest_without_date(self):
+        self.change("guides/guide.md", GUIDE + "\nThe latest release of the tool supports this.\n")
+        self.assertFails("cutoff", "time-sensitive 'latest'")
+
+    def test_version_without_date(self):
+        self.change("guides/guide.md", GUIDE + "\nUse the tool 3.22 for this.\n")
+        self.assertFails("cutoff", "time-sensitive '3.22'")
+
+    def test_year_without_date(self):
+        self.change("guides/guide.md", GUIDE + "\nIn 2025 most tools changed.\n")
+        self.assertFails("cutoff", "time-sensitive '2025'")
+
+    def test_korean_word_in_translation(self):
+        self.change("guides/guide.ko.md", "# \uc548\ub0b4\n\n\ud604\uc7ac \ub3c4\uad6c\ub97c \uc501\ub2c8\ub2e4.\n")
+        self.assertFails("cutoff", "time-sensitive")
+
+    def test_dated_claim_passes(self):
+        self.change("guides/guide.md", GUIDE + "\nAs of 2026-09-25, the latest release is 3.22.\n")
+        self.assertPasses("cutoff")
+
+    def test_cited_claim_passes(self):
+        self.change("guides/guide.md", GUIDE + "\nThe latest release is 3.22 [29].\n")
+        self.assertPasses("cutoff")
+
+    def test_note_is_not_checked(self):
+        self.change("notes/n2.md", note(body="I used the latest release, 3.22, in 2026.\n"))
+        self.assertPasses("cutoff")
 
 
 if __name__ == "__main__":

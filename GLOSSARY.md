@@ -40,6 +40,8 @@ This file gives the terms of this repository. All documents use these terms and 
 | normalization | The change of a note into a guide step, a clause or a template, with abstract terms | This repository |
 | lead agent | The agent that plans a task, starts subagents, reviews their results and decides | This repository |
 | subagent | An agent that a lead agent starts for one part of a task, in its own session | This repository |
+| time-sensitive claim | A sentence that can become wrong only because time passes: a version, a calendar year or a word of the table below | This repository |
+| knowledge cutoff | The date after which a language model has no training data. The reported cutoff and the effective cutoff can be different | [41] |
 
 ## Concrete terms
 
@@ -61,3 +63,27 @@ This table is the only list of concrete terms. The `abstraction` check reads it 
 | master branch | default branch |
 | origin/main | default branch |
 | origin/master | default branch |
+
+## Time-sensitive words
+
+This table is the only list of time-sensitive words. The `cutoff` check reads it (DESIGN.md §13). It also finds versions such as 3.22 and calendar years. The Korean words are in `docs_checks.py`, because an original contains no Hangul (DESIGN.md §11). The words "new", "now", "recent" and "current" are not in the table. In the procedures of this repository they refer to the time of reading.
+
+| Word |
+|---|
+| latest |
+| newest |
+| currently |
+| nowadays |
+| no longer |
+| deprecated |
+| as of |
+| up-to-date |
+| up to date |
+| at the time of writing |
+| current version |
+| current release |
+| new version |
+| new release |
+| recent version |
+| recent release |
+| recently |

@@ -39,10 +39,10 @@ Roles: the lead agent plans, starts subagents, reviews and decides. It changes n
    Needs: step 3.
    Basis: no clause or reference.
    Done when: the normalizer is not the author. The session record of the lead agent has no change to a file.
-6. **Put each fact of the note into the structure that exists.** Add to a guide step, a clause or a template. Use the abstract terms of GLOSSARY.md. Add, and do not rename or renumber (DESIGN.md §13). Link each changed step to the note.
+6. **Put each fact of the note into the structure that exists.** Add to a guide step, a clause or a template. Use the abstract terms of GLOSSARY.md. Add, and do not rename or renumber (DESIGN.md §13). Link each changed step to the note. Verify each time-sensitive claim of the note again against a current source. Record the date of access. A claim with no source is unverified. A claim about a time after the `knowledge-cutoff` of the author is also unverified. Rewrite or drop each unverified claim.
    Needs: step 5.
    Basis: DESIGN.md §2 and §13.
-   Done when: each fact is in a published document or is left out on purpose. Each changed step links to the note.
+   Done when: each fact is in a published document or is left out on purpose. Each changed step links to the note. Each time-sensitive sentence in the normalized text has a date or a reference.
 7. **Set the status of the note to `normalized`.** Write each target heading in `normalized-into`. Do not change the body of the note.
    Needs: step 6.
    Basis: DESIGN.md §2.
@@ -68,7 +68,7 @@ Roles: the lead agent plans, starts subagents, reviews and decides. It changes n
     Needs: step 3.
     Basis: no clause or reference.
     Done when: both hashes are equal, and each transcript matches the manifest.
-11. **Fork the archived session, and discuss the note in the fork.** Resume a copy with a new session id. Do not add to the archived original, so that the source of the note stays fixed.
+11. **Fork the archived session, and discuss the note in the fork.** Resume a copy with a new session id. Do not add to the archived original, so that the source of the note stays fixed. The first message to the fork states today's date and the `written-at` of the note. It also tells the fork to verify each fact after its `knowledge-cutoff` with a source before use.
     Needs: step 10.
     Basis: no clause or reference.
-    Done when: after the discussion, the SHA-256 of the manifest is still equal to `session.sha256`.
+    Done when: after the discussion, the SHA-256 of the manifest is still equal to `session.sha256`. The first message to the fork gives both dates and the rule for facts after the cutoff.

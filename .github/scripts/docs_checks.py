@@ -4,6 +4,7 @@
   docs_checks.py structure   [--base REV] [--head REV]
   docs_checks.py abstraction [--base REV] [--head REV]
   docs_checks.py notes       [--base REV] [--head REV]
+  docs_checks.py cutoff      [--head REV]
 
 --base: the change is compared with the merge base of REV and the head.
         Without --base, abstraction checks only the tree, and structure does nothing.
@@ -257,6 +258,7 @@ def check_structure(base, head):
 
 
 NOTE_FIELDS = ["author", "date", "repository", "status", "normalized-into",
+               "written-at", "model", "knowledge-cutoff",
                "session.tool", "session.id", "session.archive", "session.sha256"]
 NOTE_CHANGEABLE = {"status", "normalized-into"}
 
@@ -316,6 +318,14 @@ def check_notes(base, head):
             errors.append(f"{path}: session.sha256 is 64 lowercase hexadecimal characters.")
         if "session.archive" in fields:
             errors += archive_errors(path, fields["session.archive"])
+        written = fields.get("written-at", "")
+        cutoff = fields.get("knowledge-cutoff", "")
+        if written and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", written):
+            errors.append(f"{path}: written-at is an ISO date, YYYY-MM-DD.")
+        if cutoff and not re.fullmatch(r"unknown|\d{4}-\d{2}(-\d{2})?", cutoff):
+            errors.append(f"{path}: knowledge-cutoff is YYYY-MM, YYYY-MM-DD or unknown.")
+        elif cutoff not in ("", "unknown") and written and cutoff > written:
+            errors.append(f"{path}: knowledge-cutoff is after written-at.")
         status = fields.get("status")
         if status not in ("raw", "normalized"):
             errors.append(f"{path}: status is raw or normalized, not '{status}'.")
@@ -341,9 +351,69 @@ def check_notes(base, head):
     return errors
 
 
+DATED = re.compile(r"\b\d{4}-\d{2}(-\d{2})?\b")
+VERSION = re.compile(r"(?<![\w.\u00a7])v?\d+\.\d+(\.\d+)*(?![\w%])(?!\.\d)")
+YEAR = re.compile(r"(?<![\w-])(19|20)\d{2}(?![\w-])")
+LINK_TARGET = re.compile(r"\]\([^)]*\)")
+CODE_SPAN = re.compile(r"`[^`]*`")
+FILE_NAME = re.compile(r"[\w./-]+\.md\b")
+
+
+KO_TIME_WORDS = ["\ucd5c\uc2e0", "\ud604\uc7ac", "\uc9c0\uae08\uc740", "\uc694\uc998", "\ucd5c\uadfc", "\ub354 \uc774\uc0c1", "\ud3d0\uae30"]
+
+
+def time_words(tree):
+    """Patterns from the table 'Time-sensitive words' in GLOSSARY.md."""
+    words, in_table = [], False
+    for line in tree.read(GLOSSARY).splitlines():
+        h = HEADING.match(line)
+        if h:
+            in_table = h.group(2).strip() == "Time-sensitive words"
+            continue
+        if not in_table or not line.startswith("|") or "---" in line:
+            continue
+        word = line.strip("|").split("|")[0].strip()
+        if not word or word == "Word":
+            continue
+        if re.search(r"[\uac00-\ud7a3]", word):
+            words.append((re.compile(re.escape(word)), word))
+        else:
+            words.append((re.compile(r"(?<![\w-])" + re.escape(word) + r"(?![\w-])", re.I), word))
+    if not words:
+        sys.exit(f"{GLOSSARY}: no table under the heading 'Time-sensitive words'")
+    # Korean: choesin, hyeonjae, jigeumeun, yojeum, choegeun, deo isang, pyegi.
+    # They are here because an original contains no Hangul (DESIGN.md \u00a711).
+    for w in KO_TIME_WORDS:
+        words.append((re.compile(re.escape(w)), w))
+    return words
+
+
+def check_cutoff(tree, scope):
+    """A time-sensitive sentence in a published layer has a date or cites a reference."""
+    errors, words = [], time_words(tree)
+    for path in scope:
+        text = tree.read(path)
+        fields, _ = front_matter(text)
+        skip = len(re.match(r"^---\n.*?\n---\n", text, re.S).group(0).splitlines()) if fields else 0
+        for n, line, fenced in prose_lines(text):
+            if fenced or n <= skip or line.startswith("<!--"):
+                continue
+            clean = FILE_NAME.sub("", CODE_SPAN.sub("", LINK_TARGET.sub("]", URL.sub("", line))))
+            for sentence in (p for part in clean.split("|") for p in sentences(part)):
+                if CITATION.search(sentence) or DATED.search(sentence):
+                    continue
+                found = [w for pat, w in words if pat.search(sentence)]
+                m = VERSION.search(sentence) or YEAR.search(sentence)
+                if m:
+                    found.append(m.group(0))
+                if found:
+                    errors.append(f"{path}:{n}: time-sensitive '{found[0]}' with no date. Add 'as of YYYY-MM-DD' or cite a reference [n] (DESIGN.md §13).")
+    return errors
+
+
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("check", choices=["structure", "abstraction", "notes"])
+    p.add_argument("check", choices=["structure", "abstraction", "notes", "cutoff"])
     p.add_argument("--base")
     p.add_argument("--head")
     o = p.parse_args()
@@ -354,6 +424,8 @@ def main():
         base = Tree(base_rev)
     if o.check == "structure":
         errors = check_structure(base, head) if base else []
+    elif o.check == "cutoff":
+        errors = check_cutoff(head, abstract_scope(head))
     elif o.check == "notes":
         errors = check_notes(base, head)
     else:

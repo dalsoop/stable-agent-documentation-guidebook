@@ -38,6 +38,9 @@ date: 2026-09-25
 repository: <the repository that the note is about>
 status: raw                # raw | normalized
 normalized-into: []        # <path>#<heading anchor> of each target
+written-at: 2026-09-25     # the date of writing
+model: <model id that the tool reports>
+knowledge-cutoff: unknown  # YYYY-MM or YYYY-MM-DD from the model or its documentation, or unknown
 session:
   tool: <agent tool>
   id: <session id>
@@ -181,3 +184,5 @@ The published layers use the abstract terms of GLOSSARY.md. They are the files w
 - a change that replaces an abstract term with its concrete term.
 
 Run the checks with `python3 .github/scripts/docs_checks.py structure|abstraction|notes --base <default branch>`. The tests are in `.github/scripts/test_docs_checks.py`. [Decision 0009](decisions/0009-structure-and-abstraction-checks.md) gives the reason.
+
+A time-sensitive claim in a published layer has a date, for example "as of 2026-09-25", or cites a reference. The table "Time-sensitive words" in GLOSSARY.md gives the words. The `cutoff` check also finds versions and calendar years. It cannot find a claim that uses none of them. Thus each practice also has a review date. [Decision 0011](decisions/0011-time-sensitive-claims.md) gives the reason.

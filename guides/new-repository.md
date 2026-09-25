@@ -51,7 +51,7 @@ Step 1 puts this checklist in one place. Mark each phase when the completion cri
 
 ## 3. Change flow
 
-6. **Start the task in a new worktree from the latest default branch.** Run `git fetch origin`. Then run `git worktree add -b <branch> <path> origin/<default branch>`. To read the default branch, use `git show origin/<default branch>:<file>`.
+6. **Start the task in a new worktree from the fetched default branch.** Run `git fetch origin`. Then run `git worktree add -b <branch> <path> origin/<default branch>`. To read the default branch, use `git show origin/<default branch>:<file>`.
    Needs: step 5.
    Basis: [33]. [Note 2026-09-25](../notes/2026-09-25-bare-worktree-trial.md) records one trial.
    Done when: `git worktree list` shows the new worktree on its branch, and no worktree on the default branch.
@@ -70,7 +70,7 @@ Step 1 puts this checklist in one place. Mark each phase when the completion cri
 
 ## 4. Documents
 
-10. **Write the documents with [new-project.md](new-project.md), one task at a time.** In its step 5, add one rule to the context file. The rule: start each task in a new worktree from the latest default branch. Give the rule a reason. Nothing on the code host makes an agent start in a new worktree. Do not write the protection rule in the context file, because the code host enforces it.
+10. **Write the documents with [new-project.md](new-project.md), one task at a time.** In its step 5, add one rule to the context file. The rule: start each task in a new worktree from the fetched default branch. Give the rule a reason. Nothing on the code host makes an agent start in a new worktree. Do not write the protection rule in the context file, because the code host enforces it.
     Needs: steps 4 and 5.
     Basis: R-001, R-002.
     Done when: the context file has the rule for worktrees with a reason. It does not state the protection rule.

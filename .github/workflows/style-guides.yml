@@ -77,5 +77,8 @@ jobs:
       - name: "Notes: front matter, session pointer and append-only body"
         run: python3 .github/scripts/docs_checks.py notes --base "$BASE"
 
+      - name: "Cutoff: each time-sensitive claim has a date or a reference"
+        run: python3 .github/scripts/docs_checks.py cutoff
+
       - name: "Tests of the checks"
         run: VALE=./vale python3 .github/scripts/test_docs_checks.py

@@ -4,6 +4,9 @@ date: 2026-09-25
 repository: stable-agent-documentation-guidebook
 status: normalized
 normalized-into: [guides/new-repository.md#2-local-layout, guides/new-repository.md#3-change-flow]
+written-at: 2026-09-25
+model: claude-opus-5-5
+knowledge-cutoff: 2026-06
 session:
   tool: Claude Code
   id: agent-ad75e126f9fdb8296
