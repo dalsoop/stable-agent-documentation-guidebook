@@ -35,7 +35,7 @@ Roles: the lead agent plans, starts subagents, reviews and decides. It changes n
 
 ## 2. Normalize
 
-5. **Start a different subagent to normalize the note.** The lead agent reviews the result and changes no file.
+5. **Start a different subagent to normalize the note.** The lead agent reviews the result and changes no file. In the [snapshot 2026-09-25](../snapshots/2026-09-25-setup-simulation/README.md), a different session showed no difference in quality from the author, and it cost less.
    Needs: step 3.
    Basis: no clause or reference.
    Done when: the normalizer is not the author. The session record of the lead agent has no change to a file.
