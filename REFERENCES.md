@@ -132,3 +132,37 @@ Each entry tells what this repository takes from the source. It also gives the l
 **[32]** A. Iorio, F. A. Spencer, M. Falavigna et al., "Use of GRADE for assessment of evidence about prognosis: rating confidence in estimates of event rates in broad categories of patients," *BMJ* 350, h870, 2015. https://researchonline.lshtm.ac.uk/id/eprint/2131850/1/bmj.h870.full.pdf
 - Takes: for evidence about how often an event occurs in a population, a body of observational studies starts at high certainty.
 - Limits: written for clinical prognosis. Its use for phenomena in software repositories is this repository's judgment.
+
+## Repository setup
+
+**[33]** Git documentation, "git-worktree," "git-clone" and "githooks." https://git-scm.com/docs/git-worktree · https://git-scm.com/docs/git-clone · https://git-scm.com/docs/githooks
+- Takes: a repository can have more than one worktree, and `git worktree add -b` makes a branch and its worktree. A branch cannot be in two worktrees. A bare clone makes no remote-tracking branches. `--no-verify` skips the pre-commit hook.
+- Limits: tool documentation. It tells how the tool works, not what the setup changes.
+
+**[34]** GitHub Docs, "About protected branches." https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches
+- Takes: a protected branch can require a pull request with approvals and passed status checks, and can restrict pushes. By default, administrators skip these rules. A separate setting applies them to administrators too.
+- Limits: tool documentation for one code host.
+
+**[35]** GitLab Docs, "Protected branches." https://docs.gitlab.com/user/project/repository/branches/protected/
+- Takes: the default branch is protected by default. To prevent direct pushes, set "Allowed to push and merge" to "No one".
+- Limits: tool documentation for one code host. A user who can change the protection can remove it.
+
+**[36]** J. Geng, G. Neubig, "Effective Strategies for Asynchronous Software Engineering Agents," arXiv:2603.21489, 2026. https://arxiv.org/abs/2603.21489
+- Takes: nothing for a guide step. Only decision 0008 cites it. With one model, agents in a worktree each scored higher than agents in one shared worktree. The scores were 63.3% and 55.5% on PaperBench, and 59.1% and 56.1% on Commit0-Lite.
+- Limits: it measures task success, which is out of scope (DESIGN.md §1). Two authors, two benchmarks, one model for this comparison and no peer review.
+
+**[37]** G. Xu, A. Subramanian, N. Karthik, "AI Agent Pull Requests on GitHub: Frequency, Structure, and Merge Conflict Rates," arXiv:2607.04697, 2026. https://arxiv.org/abs/2607.04697
+- Takes: the study merged 747 pairs of agent pull requests that were open at the same time. Pairs from the same agent had a textual conflict in 19.8% of cases. Pairs from different agents had a conflict in 41.7%.
+- Limits: the study does not examine worktrees. It replays merges and does not observe how the agents worked. No peer review.
+
+**[38]** D. Ogenrwot, J. Businge, "AgenticFlict: A Large-Scale Dataset of Merge Conflicts in AI Coding Agent Pull Requests on GitHub," AIware 2026. https://arxiv.org/abs/2604.03551
+- Takes: 27.67% of more than 107,000 agent pull requests had a merge conflict in a merge simulation.
+- Limits: the study does not examine worktrees. The pull requests come from separate branches, so the rate shows only that separate branches do not prevent conflicts.
+
+**[39]** K. Wirth, "How to Run Coding Agents in Parallel with Git Worktrees," Nimbalyst, 2026. https://nimbalyst.com/blog/git-worktrees-for-ai-coding-agents-complete-guide/
+- Takes: worktrees isolate files, not ports, databases or external accounts. Each worktree needs its own installed dependencies.
+- Limits: a blog post from a vendor of a tool for worktrees, with no measurement.
+
+**[40]** GitWorktree.org, "Git Bare Repository with Worktrees — Setup Guide." https://www.gitworktree.org/guides/bare-repo
+- Takes: the layout of a bare repository with one worktree for each branch, and the fetch setting that a bare clone needs. Some tools expect a normal clone and do not recognize a bare repository.
+- Limits: a practitioner guide with no author, no date and no measurement.
