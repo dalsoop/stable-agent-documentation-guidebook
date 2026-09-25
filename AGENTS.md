@@ -7,3 +7,5 @@ Read [DESIGN.md](DESIGN.md) for the layers and [GLOSSARY.md](GLOSSARY.md) for th
 - Use the terms in GLOSSARY.md and no synonyms. For a new term, use the term of the cited research, and add it with its source. (Reason: readers can then search the research for the same term.)
 - Write each meaning in one place, and link to it from other places. (Reason: duplication was the most frequent defect in the review of 2026-09-25.)
 - Delete each sentence that does not change what a reader does. (Reason: such a sentence costs time to read and adds nothing [23].)
+- Add text, and keep each published heading, numbered step, table column, clause id, reference number and file path. (Reason: readers copy and link these documents. DESIGN.md §13 tells how to change one.)
+- As the lead agent, plan, review and decide, and let subagents change the files. (Reason: [guides/notes.md](guides/notes.md) needs a normalizer that did not write the note.)

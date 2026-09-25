@@ -1,6 +1,6 @@
 # Start a project
 
-Use this procedure to make the repository documents of a new repository. For a repository that already has documents, use §4. The procedure follows the rules for guides in [DESIGN.md](../DESIGN.md) §2. Each step cites its clauses, references and sections of DESIGN.md, or it states that it has none. Each clause and [REFERENCES.md](../REFERENCES.md) give the certainty and the limits. A clause with the status `proposed` is not adopted yet.
+Use this procedure to make the repository documents of a new repository. Set up the repository first with [new-repository.md](new-repository.md). For a repository that already has documents, use §4. The procedure follows the rules for guides in [DESIGN.md](../DESIGN.md) §2. Each step cites its clauses, references and sections of DESIGN.md, or it states that it has none. Each clause and [REFERENCES.md](../REFERENCES.md) give the certainty and the limits. A clause with the status `proposed` is not adopted yet.
 
 ## 1. Readers
 
@@ -49,7 +49,7 @@ The README row comes from [26]. The ARCHITECTURE row comes from [22]. The contex
 9. **Make a person read a document again when its code changes.** Select few target files, not ARCHITECTURE. Record their hash in the document, and make the check fail when the hash changes (the rust-analyzer method). [21].
    Done when: a change to a target file makes the check fail until you update the recorded hash.
 10. **Report outdated references as warnings.** Automatic detection (DOCER) has many false positives [8] [2]. Make the check block a change only after a sample of its findings shows a precision that you accept. [7].
-    Done when: the check runs on each pull request, and a record gives its measured precision.
+    Done when: the check runs on each change request, and a record gives its measured precision.
 11. **List the rules that no check verifies.** Put them in the rules for change of ARCHITECTURE. Then a person knows what to verify manually. No clause or reference: this step comes from the case study.
     Done when: each boundary rule has a check or is on the list.
 12. **Do not add feature descriptions to the context file.** A feature description repeats what the code and the help show (R-002). Put behavior in the help of the tool, and reasons in a decision record.

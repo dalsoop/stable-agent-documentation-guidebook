@@ -1,0 +1,6 @@
+extends: existence
+message: "Abstract: 'I' is first person. Name the repository, the reader or a role (DESIGN.md §13)."
+level: error
+ignorecase: false
+tokens:
+  - I

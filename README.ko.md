@@ -1,7 +1,7 @@
-<!-- source: README.md sha256: 249ef3cd3488abaf2e2fb7e6a01baf523abaf90eca3e76bd9a34927c8d809660 -->
+<!-- source: README.md sha256: af5be9e5f085289b8da12b6ac648314d0fda840b5842b0974dd96de118621b18 -->
 # stable-agent-documentation-guidebook
 
-에이전트는 작업하기 전에 저장소의 문서를 읽습니다. 대상은 README, ARCHITECTURE, AGENTS.md 같은 컨텍스트 파일, CONTRIBUTING입니다. 문서가 낡았거나 엉뚱한 독자를 위해 쓰였다면, 에이전트는 틀린 사실을 바탕으로 일하게 됩니다. 이 가이드북은 문서마다 독자를 정하고 그 독자를 위해 쓰는 방법을 안내합니다. 또한 코드가 바뀌어도 문서가 정확하게 유지되도록 관리하는 방법과, 해당 독자를 대상으로 문서를 시험하는 방법도 안내합니다. 이미 발표된 연구와 현재 운영되는 도구를 적용하며, 새로운 도구는 만들지 않습니다.
+에이전트는 작업하기 전에 저장소의 문서를 읽습니다. 대상은 README, ARCHITECTURE, AGENTS.md 같은 컨텍스트 파일, CONTRIBUTING입니다. 문서가 낡았거나 엉뚱한 독자를 위해 쓰였다면, 에이전트는 틀린 사실을 바탕으로 일하게 됩니다. 이 가이드북은 문서마다 독자를 정하고 그 독자를 위해 쓰는 방법을 안내합니다. 또한 코드가 바뀌어도 문서가 정확하게 유지되도록 관리하는 방법과, 해당 독자를 대상으로 문서를 시험하는 방법도 안내합니다. 이미 발표된 연구와 사용할 수 있는 도구를 적용하며, 새로운 도구는 만들지 않습니다.
 
 모든 조항에는 근거 등급과 반증 기준이 붙어 있습니다. 조항은 결정 기록이 채택하기 전까지 제안 상태이므로, 사용하기 전에 각 조항의 상태를 확인해야 합니다. 원본은 영어로 작성하며 Simplified Technical English(STE)를 따릅니다. 번역본은 해당 언어의 작성 지침을 따릅니다([DESIGN.md](DESIGN.md) 11절).
 
@@ -14,6 +14,8 @@
 | 문서 | 독자 | 독자 과제 |
 |---|---|---|
 | 이 README | 가이드북을 처음 보는 사람이나 에이전트 | 가이드북의 용도를 파악하고 다음에 읽을 문서를 찾습니다 |
+| [guides/new-repository.md](guides/new-repository.md) | 새 저장소를 만드는 사람이나 에이전트 | 에이전트가 작업할 위치와 변경 사항이 기본 브랜치에 들어가는 경로를 정합니다 |
+| [guides/notes.md](guides/notes.md) | 작업 보고를 안내로 바꾸는 리드 에이전트나 사람 | 노트를 정규화하고 검증해 병합하며, 논의가 필요하면 작성자의 세션을 포크합니다 |
 | [guides/new-project.md](guides/new-project.md), [guides/templates/](guides/templates/) | 저장소의 문서를 작성하는 사람이나 에이전트 | 문서와 검사를 만들고, 각 문서를 해당 독자를 대상으로 시험합니다 |
 | [guides/case-swift-monorepo.md](guides/case-swift-monorepo.md) | 위와 같은 작성자 | 안내를 적용한 사례 하나를 확인합니다 |
 | [principles/](principles/), [practices/](practices/) | 컨텍스트 파일에서 조항을 인용하는 사람 | 조항의 내용, 근거의 강도, 조항이 틀리게 되는 조건을 설명합니다 |
@@ -22,9 +24,18 @@
 | [DESIGN.md](DESIGN.md), [AGENTS.md](AGENTS.md) | 이 가이드북을 고치는 사람이나 에이전트 | 진입 조건을 충족하는 조항을 추가하거나 고칩니다 |
 | [decisions/](decisions/) | 결정을 바꾸려는 사람이나 에이전트 | 그 결정을 내린 이유와 기각된 대안을 설명합니다 |
 | [snapshots/](snapshots/) | 측정 결과를 확인하는 사람 | 측정 데이터와 측정 조건을 찾습니다 |
+| [notes/](notes/) | 노트를 정규화하는 서브에이전트나 노트를 논의하는 사람 | 작성자가 한 일과 본 것, 그리고 세션 기록을 찾습니다 |
 | [README.ko.md](README.ko.md) | 이 README의 한국어 독자 | 이 README와 같은 과제를 수행합니다 |
 
 ## 사용 방법
+
+안내 문서는 다음 순서로 사용합니다.
+
+1. [guides/new-repository.md](guides/new-repository.md): 새 저장소를 만들 때 사용합니다.
+2. [guides/new-project.md](guides/new-project.md): 문서를 작성할 때 사용합니다. 저장소에 이미 문서가 있다면 이 문서의 4절부터 시작합니다.
+3. [guides/notes.md](guides/notes.md): 작업 보고로 안내, 조항, 템플릿을 바꿀 수 있을 때 사용합니다.
+
+new-project.md의 단계는 다음 순환을 따릅니다.
 
 ```mermaid
 flowchart LR

@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # The structure check needs the merge base (DESIGN.md §13).
 
       - name: "English: no Hangul outside translations"
         run: |
@@ -57,3 +59,26 @@ jobs:
               if ($got ne $want) { print "$t: $orig changed after the recorded hash (now $got). Update the translation and its hash.\n"; $bad = 1 }
             }
             exit($bad ? 1 : 0)'
+
+      - name: "Base of the change (DESIGN.md §13)"
+        run: |
+          if [ "${{ github.event_name }}" = pull_request ]; then base="${{ github.event.pull_request.base.sha }}"; else base="${{ github.event.before }}"; fi
+          if [ -z "$base" ] || ! git cat-file -e "${base}^{commit}" 2>/dev/null; then
+            base=$(git merge-base HEAD "origin/${{ github.event.repository.default_branch }}")
+          fi
+          echo "BASE=$base" >> "$GITHUB_ENV"
+
+      - name: "Structure: published headings, steps, columns, ids and paths stay"
+        run: python3 .github/scripts/docs_checks.py structure --base "$BASE"
+
+      - name: "Abstraction: no first person, personal paths or concrete terms"
+        run: python3 .github/scripts/docs_checks.py abstraction --base "$BASE"
+
+      - name: "Notes: front matter, session pointer and append-only body"
+        run: python3 .github/scripts/docs_checks.py notes --base "$BASE"
+
+      - name: "Cutoff: each time-sensitive claim has a date or a reference"
+        run: python3 .github/scripts/docs_checks.py cutoff
+
+      - name: "Tests of the checks"
+        run: VALE=./vale python3 .github/scripts/test_docs_checks.py
