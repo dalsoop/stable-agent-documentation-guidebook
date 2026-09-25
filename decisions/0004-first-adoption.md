@@ -4,6 +4,8 @@
 
 Proposed (2026-09-25). This decision starts to apply when a person changes this status to Accepted. The person also sets the status of the four clauses to `adopted`.
 
+Replaced by [decision 0007](0007-first-adoption.md) (2026-09-25).
+
 ## Context
 
 The four clauses that stay all have the status `proposed`. Thus no prescription of the guidebook is in effect, and [guides/new-project.md](../guides/new-project.md) cites only proposals. In the same change, R-002 got a new reason and falsification criterion inside the scope: duplication and outdated references, not task success.

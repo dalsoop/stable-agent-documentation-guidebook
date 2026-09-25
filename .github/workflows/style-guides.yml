@@ -42,17 +42,18 @@ jobs:
         run: |
           git ls-files -z -- '*.ko.md' | xargs -0 -r perl -MDigest::SHA=sha256_hex -e '
             for my $t (@ARGV) {
+              (my $orig = $t) =~ s/\.ko\.md$/.md/;
+              (my $name = $orig) =~ s{.*/}{};
               open my $fh, "<", $t or die "$t: $!";
               my $first = <$fh>;
               close $fh;
               my ($src, $want) = $first =~ /<!--\s*source:\s*(\S+)\s+sha256:\s*([0-9a-f]{64})\s*-->/;
-              unless ($src) { print "$t: the first line must be <!-- source: <file> sha256: <hash> -->\n"; $bad = 1; next }
-              (my $dir = $t) =~ s{[^/]*$}{};
-              my $path = $dir . $src;
-              open my $sf, "<:raw", $path or do { print "$t: original $path not found\n"; $bad = 1; next };
+              unless ($src) { print "$t: the first line must be <!-- source: $name sha256: <hash> -->\n"; $bad = 1; next }
+              if ($src ne $name) { print "$t: the source must be $name, not $src\n"; $bad = 1; next }
+              open my $sf, "<:raw", $orig or do { print "$t: original $orig not found\n"; $bad = 1; next };
               local $/;
               my $got = sha256_hex(<$sf>);
               close $sf;
-              if ($got ne $want) { print "$t: $path changed (sha256 $got). Update the translation and its hash.\n"; $bad = 1 }
+              if ($got ne $want) { print "$t: $orig changed after the recorded hash (now $got). Update the translation and its hash.\n"; $bad = 1 }
             }
             exit($bad ? 1 : 0)'
