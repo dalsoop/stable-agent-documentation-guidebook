@@ -11,6 +11,8 @@ This table names the reader and the reader task of each document of this reposit
 | Document | Reader | Reader task |
 |---|---|---|
 | This README | A person or an agent that sees the guidebook for the first time | Tell what the guidebook is for and find the next document |
+| [guides/new-repository.md](guides/new-repository.md) | A person or an agent that makes a new repository | Set up where agents write and how changes reach the default branch |
+| [guides/notes.md](guides/notes.md) | A lead agent or a person who turns a report of work into guidance | Get a note normalized, validated and merged, and fork its session to discuss it |
 | [guides/new-project.md](guides/new-project.md), [guides/templates/](guides/templates/) | A person or an agent that writes the documents of a repository | Make the documents and the checks, and test each document with its reader |
 | [guides/case-swift-monorepo.md](guides/case-swift-monorepo.md) | The same writer | See one application of the guide |
 | [principles/](principles/), [practices/](practices/) | A person who cites a clause in a context file | Tell what the clause says, how strong its evidence is and when it is wrong |
@@ -19,9 +21,18 @@ This table names the reader and the reader task of each document of this reposit
 | [DESIGN.md](DESIGN.md), [AGENTS.md](AGENTS.md) | A person or an agent that changes this guidebook | Add or change a clause that meets the entry conditions |
 | [decisions/](decisions/) | A person or an agent that wants to change a decision | Tell why the decision was made and which alternatives failed |
 | [snapshots/](snapshots/) | A person who checks a measurement | Find the data and the conditions of the measurement |
+| [notes/](notes/) | A subagent that normalizes a note, or a person who discusses it | Find what the author did and saw, and its session record |
 | [README.ko.md](README.ko.md) | A Korean reader of this README | The same task as this README |
 
 ## How to use it
+
+Use the guides in this order:
+
+1. [guides/new-repository.md](guides/new-repository.md), when you make a new repository.
+2. [guides/new-project.md](guides/new-project.md), when you write the documents. If the repository already has documents, start at its §4.
+3. [guides/notes.md](guides/notes.md), when a report of work can change a guide, a clause or a template.
+
+The steps of new-project.md follow this cycle:
 
 ```mermaid
 flowchart LR

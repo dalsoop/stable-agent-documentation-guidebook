@@ -6,6 +6,7 @@ This document gives the design of the guidebook. The guidebook tells how to writ
 
 - **Documents:** README, ARCHITECTURE, context files and CONTRIBUTING.
 - **In scope:** growth by addition and outdated references in these documents, the rules and checks that prevent them, and reader tests of single documents (R-004).
+- **Also in scope:** the setup of a repository that decides where agents write and how changes reach the default branch. Only its effect on the documents that agents read and on the checks is in scope ([decision 0008](decisions/0008-repository-setup.md)).
 - **Out of scope:** the general effect of context files on the task success of agents. [3] and [5] found no reliable gain in correctness, and [4] measured only time and tokens. This repository only cites them.
 
 ## 2. Layers and records
@@ -27,6 +28,24 @@ Two records are not layers. You can only add to them. To change a record, write 
 |---|---|---|
 | Decision record | `decisions/` | The reason for a change to the structure or to the status of a clause |
 | Snapshot | `snapshots/` | Measurements |
+| Note | `notes/` | The report of one agent or person about its work, in its own words. It is not evidence |
+
+A note can use first person, real paths and product names. Only its `status` and `normalized-into` can change. [guides/notes.md](guides/notes.md) tells how a note becomes guidance ([decision 0010](decisions/0010-notes-and-stages.md)). A note starts with this front matter:
+
+```yaml
+author: <agent or person>
+date: 2026-09-25
+repository: <the repository that the note is about>
+status: raw                # raw | normalized
+normalized-into: []        # <path>#<heading anchor> of each target
+session:
+  tool: <agent tool>
+  id: <session id>
+  archive: <private location, not in this repository>
+  sha256: <SHA-256 of the manifest of the archive>
+```
+
+The manifest lists the SHA-256 of each transcript file in the archive.
 
 ```mermaid
 flowchart TB
@@ -43,7 +62,7 @@ flowchart TB
 
 > If a sample does not have sufficient quality or consistency, do not adopt conclusions from it.
 
-This invariant applies to our own measurements and to cited studies. Use these available methods to examine a sample:
+This invariant applies to the measurements of this repository and to cited studies. Use these available methods to examine a sample:
 
 - **Sample quality:** the known problems of GitHub data [10] and the guidelines for samples in software engineering research [11].
 - **Consistency and weak points:** the five GRADE domains [12]. These are risk of bias, inconsistency, imprecision, indirectness and publication bias. Lower the certainty for risk of bias if all evidence comes from synthetic experiments. Lower it for inconsistency if the results do not agree. Lower it for imprecision if the samples are small. Lower it for indirectness if the studies use other languages or agents.
@@ -130,7 +149,7 @@ Withdrawn clauses:
 
 ## 10. Pilot snapshot
 
-`snapshots/2026-09-24-pilot/` contains measurements of metrics from design v1. This design does not use these metrics. Thus the guidebook does not cite the snapshot as evidence. The snapshot stays as an example: when we divided the sample, the conclusion changed direction. This example is the reason for §3.
+`snapshots/2026-09-24-pilot/` contains measurements of metrics from design v1. This design does not use these metrics. Thus the guidebook does not cite the snapshot as evidence. The snapshot stays as an example: when the analysis divided the sample, the conclusion changed direction. This example is the reason for §3.
 
 ## 11. Languages
 
@@ -138,7 +157,7 @@ Each language has one style guide. A file follows the style guide of its languag
 
 | Language | Files | Style guide | Mechanical check |
 |---|---|---|---|
-| English | All originals | ASD-STE100 Simplified Technical English [24] | No Hangul. Vale [29]: 25 words or fewer in each sentence, and 20 or fewer in `AGENTS.md`, `guides/new-project.md` and `guides/templates/`. A reviewer checks table cells and procedure sentences in other files |
+| English | All originals | ASD-STE100 Simplified Technical English [24] | No Hangul. Vale [29]: 25 words or fewer in each sentence, and 20 or fewer in `AGENTS.md`, `guides/new-repository.md`, `guides/new-project.md`, `guides/notes.md` and `guides/templates/`. A reviewer checks table cells and procedure sentences in other files |
 | Korean | Translations with the name `<name>.ko.md` | fluent-korean [25] | No em dash |
 
 A translation of `<name>.md` is `<name>.ko.md` in the same folder. If the two are different, the original is correct. The first line of a translation records the SHA-256 hash of its original. The check fails when the original changed after the recorded hash. It cannot show that the text of the translation follows the original. This is the method of [21]. To add a language, add a row to this table and write a decision record.
@@ -149,3 +168,16 @@ A translation of `<name>.md` is `<name>.ko.md` in the same folder. If the two ar
 |---|---|
 | Population | For context files, use the population of [6]. Keep repositories of agent products as a different population |
 | Review cycle | Every six months. Set the certainty again when new papers or datasets are available |
+
+## 13. Stable structure and abstract terms
+
+Readers copy these documents and link to their headings. Thus a change adds text, and it keeps each published heading, numbered step, table column, clause id, reference number and file path. To change one of them, add a decision record in the same change. Put one line `<!-- structure-change: <item> -->` in it for each item. The `structure` check prints each item.
+
+The published layers use the abstract terms of GLOSSARY.md. They are the files with the style `Abstract` in `.vale.ini`, and their translations. Records and REFERENCES.md name real sources and tools, so these checks do not read them. The checks fail on:
+
+- first person: Vale in originals, `docs_checks.py` in translations;
+- a personal absolute path, also in code blocks;
+- a concrete term of GLOSSARY.md outside a code block. A sentence that cites a reference can use it, because it reports a fact of that source;
+- a change that replaces an abstract term with its concrete term.
+
+Run the checks with `python3 .github/scripts/docs_checks.py structure|abstraction|notes --base <default branch>`. The tests are in `.github/scripts/test_docs_checks.py`. [Decision 0009](decisions/0009-structure-and-abstraction-checks.md) gives the reason.
