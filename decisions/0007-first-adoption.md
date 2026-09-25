@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed (2026-09-25). This record replaces decision 0004. It starts to apply when a person changes this status to Accepted and sets the `status` of the adopted clauses to `adopted`.
+Accepted (2026-09-25). The owner of the guidebook accepted it on the day that it was proposed. This record replaces decision 0004.
 
 ## Context
 
@@ -24,5 +24,5 @@ Decision 0004 proposed four clauses. Since then, decision 0006 withdrew P-002, a
 
 ## Consequences
 
-- If a person accepts this decision, set `status: adopted` in P-001, R-001, R-002 and R-004.
+- P-001, R-001, R-002 and R-004 have the status `adopted`.
 - R-001 and R-002 keep their review date, 2027-03-24.

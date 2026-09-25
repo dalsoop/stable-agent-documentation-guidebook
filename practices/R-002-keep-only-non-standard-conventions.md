@@ -1,7 +1,7 @@
 ---
 id: R-002
 layer: practice
-status: proposed
+status: adopted
 certainty: low
 downgraded-for: [indirectness, imprecision]
 falsified-if: "Repositories that also keep overviews and structure in the context file have no more outdated references and no faster growth of that file than other repositories"

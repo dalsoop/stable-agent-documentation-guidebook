@@ -1,7 +1,7 @@
 ---
 id: P-001
 layer: principle
-status: proposed
+status: adopted
 certainty: moderate
 downgraded-for: [risk-of-bias]
 falsified-if: "A large sample from a different population shows that most changes to context files are deletions, not additions"

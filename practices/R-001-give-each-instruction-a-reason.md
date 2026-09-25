@@ -1,7 +1,7 @@
 ---
 id: R-001
 layer: practice
-status: proposed
+status: adopted
 certainty: low
 downgraded-for: [risk-of-bias, indirectness]
 falsified-if: "In real repositories, context files with reasons and context files without reasons have the same growth rate and the same ratio of deletions"

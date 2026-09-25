@@ -1,7 +1,7 @@
 ---
 id: R-004
 layer: practice
-status: proposed
+status: adopted
 certainty: very-low
 downgraded-for: [risk-of-bias, indirectness, imprecision]
 falsified-if: "In a comparison, readers do their reader task no more often with documents that name a reader and pass a reader test than with documents that do not"
@@ -25,7 +25,7 @@ A reader test checks one document for its own reader. It makes no general claim 
 ## Refutations
 
 - **Counter-evidence:** [30] and [31] are practitioner sources with no evaluation. Also, [3] and [5] measured the effect of whole context files, not the effect of a named reader.
-  **Judgment:** the evidence starts at low, and indirectness lowers it to very low (DESIGN.md §4). The clause stays proposed so that repositories can collect the comparison that the falsification criterion needs.
+  **Judgment:** the evidence starts at low, and indirectness lowers it to very low (DESIGN.md §4). [Decision 0007](../decisions/0007-first-adoption.md) adopts the clause with this certainty, so that repositories can collect the comparison that the falsification criterion needs.
 - **Counter-evidence:** a reader test with an agent does not always give the same result. One run can pass or fail by chance.
   **Judgment:** run the test more than once, and record each result. A document that fails one run needs work.
 - **Counter-evidence:** a test with human readers costs time.
